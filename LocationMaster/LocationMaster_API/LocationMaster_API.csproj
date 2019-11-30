@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <StartupObject>LocationMaster_API.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +26,10 @@
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="3.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\DataTransferObject\" />
   </ItemGroup>
 
 </Project>

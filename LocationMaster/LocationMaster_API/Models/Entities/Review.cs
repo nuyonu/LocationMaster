@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LocationMaster_API.Models
+namespace LocationMaster_API.Models.Entities
 {
     public class Review
     {

@@ -1,7 +1,7 @@
-﻿using LocationMaster_API.Models;
+﻿using LocationMaster_API.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LocationMaster_API
+namespace LocationMaster_API.Models
 {
     public class LocationMasterContext : DbContext
     {

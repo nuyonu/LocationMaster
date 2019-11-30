@@ -1,7 +1,7 @@
 ﻿using NetTopologySuite.Geometries;
 using System;
 
-namespace LocationMaster_API.Models
+namespace LocationMaster_API.Models.Entities
 {
     public class User
     {
@@ -21,7 +21,7 @@ namespace LocationMaster_API.Models
 
         public static User Create(string username, string password, string email, string lastName, string firstName)
         {
-            return new User
+            var user = new User
             {
                 UserId = Guid.NewGuid(),
                 Username = username,
@@ -30,6 +30,7 @@ namespace LocationMaster_API.Models
                 LastName = lastName,
                 FirstName = firstName
             };
+            return user;
         }
     }
 }

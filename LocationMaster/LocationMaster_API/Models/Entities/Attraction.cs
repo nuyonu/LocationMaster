@@ -1,7 +1,6 @@
 ﻿using System;
-using NetTopologySuite.Geometries;
 
-namespace LocationMaster_API.Models
+namespace LocationMaster_API.Models.Entities
 {
     public class Attraction
     {
