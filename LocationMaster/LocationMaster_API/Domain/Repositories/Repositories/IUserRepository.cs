@@ -2,7 +2,7 @@
 
 namespace LocationMaster_API.Models.Repository.IRepository
 {
-    public interface IUserRepository:IRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
     }
 }
