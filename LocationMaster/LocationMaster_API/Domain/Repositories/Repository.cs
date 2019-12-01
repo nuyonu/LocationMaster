@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using LocationMaster_API.Models.Repository.IRepository;
+using System.Threading.Tasks;
 
 namespace LocationMaster_API.Models.Repository
 {
@@ -17,6 +18,11 @@ namespace LocationMaster_API.Models.Repository
         public T GetById(int id)
         {
             return _entities.Find(id);
+        }
+
+        public async Task<IEnumerable<T>> ListAsync()
+        {
+            return await _entities.ToListAsync();
         }
 
         public IEnumerable<T> GetAll()
@@ -47,6 +53,21 @@ namespace LocationMaster_API.Models.Repository
         public void RemoveRange(IEnumerable<T> entities)
         {
             _entities.RemoveRange(entities);
+        }
+
+        public async Task AddAsync(T entity)
+        {
+            await _entities.AddAsync(entity);
+        }
+
+        public async Task<T> FindByIdAsync(Guid id)
+        {
+            return await _entities.FindAsync(id);
+        }
+
+        public void Update(T entity)
+        {
+            _entities.Update(entity);
         }
 
         private readonly DbSet<T> _entities;

@@ -1,3 +1,4 @@
+using AutoMapper;
 using LocationMaster_API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,13 +23,10 @@ namespace LocationMaster_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            var connectionString = Configuration["PostgreSql:ConnectionString"];
-            var dbPassword = Configuration["PostgreSql:DbPassword"];
-            var builder = new NpgsqlConnectionStringBuilder(connectionString)
-            {
-                Password = dbPassword
-            };
-            services.AddDbContext<LocationMasterContext>(options => options.UseNpgsql(builder.ConnectionString));
+            services.ConfigureCors();
+            services.AddAutoMapper(typeof(Startup));
+            services.ConfigureDependencyInjection();
+            services.ConfigureDatabaseBuilder(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

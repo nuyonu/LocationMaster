@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace LocationMaster_API.Controllers
 {
     [ApiController]
-    [Route("/api")]
+    [Route("api/test")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -30,7 +30,10 @@ namespace LocationMaster_API.Controllers
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
-            
+            using var unitOfWork = new UnitOfWork(_context);
+            unitOfWork.Users.Add(LocationMaster_API.Models.Entities.User.Create("nuyonu", "parola", "ceva@gmail.com", "firstName", "LastName"));
+            unitOfWork.Complete();
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                 {
                     Date = DateTime.Now.AddDays(index),

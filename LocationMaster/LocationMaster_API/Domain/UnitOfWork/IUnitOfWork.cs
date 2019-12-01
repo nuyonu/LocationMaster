@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using LocationMaster_API.Models.Repository.IRepository;
 
 namespace LocationMaster_API.Models.UnitOfWork
@@ -14,5 +15,7 @@ namespace LocationMaster_API.Models.UnitOfWork
         IReviewRepository Review { get; set; }
 
         int Complete();
+
+        Task CompleteAsync();
     }
 }
