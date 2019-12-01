@@ -18,7 +18,9 @@ namespace LocationMaster_API.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+/*            modelBuilder.Entity<User>().HasData(
+                User.Create("nuyonu", "parola", "nuyonu@gmail.com", "lastname", "firstName")
+            );*/
         }
     }
 }

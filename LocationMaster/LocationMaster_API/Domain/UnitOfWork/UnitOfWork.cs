@@ -2,6 +2,7 @@
 
 using LocationMaster_API.Models.Repository;
 using LocationMaster_API.Models.Repository.IRepository;
+using System.Threading.Tasks;
 
 namespace LocationMaster_API.Models.UnitOfWork
 {
@@ -30,6 +31,11 @@ namespace LocationMaster_API.Models.UnitOfWork
             Category=new CategoryRepository(_context);
             Photo=new PhotoRepository(_context);
             Review=new ReviewRepository(_context);
+        }
+
+        public async Task CompleteAsync()
+        {
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()
