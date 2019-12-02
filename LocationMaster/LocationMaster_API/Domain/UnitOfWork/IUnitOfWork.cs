@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LocationMaster_API.Models.Repository.IRepository;
+using LocationMaster_API.Domain.Repositories.Repositories;
 
-namespace LocationMaster_API.Models.UnitOfWork
+namespace LocationMaster_API.Domain.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {

@@ -1,10 +1,8 @@
-﻿
+﻿using System.Threading.Tasks;
+using LocationMaster_API.Domain.Repositories;
+using LocationMaster_API.Domain.Repositories.Repositories;
 
-using LocationMaster_API.Models.Repository;
-using LocationMaster_API.Models.Repository.IRepository;
-using System.Threading.Tasks;
-
-namespace LocationMaster_API.Models.UnitOfWork
+namespace LocationMaster_API.Domain.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {

@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using LocationMaster_API.Models.Entities;
 using LocationMaster_API.Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using LocationMaster_API.Domain.Entities;
 
 namespace LocationMaster_API.Mapping
 {

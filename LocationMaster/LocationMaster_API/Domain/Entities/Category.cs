@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LocationMaster_API.Models.Entities
+namespace LocationMaster_API.Domain.Entities
 {
     public class Category
     {
@@ -10,7 +10,7 @@ namespace LocationMaster_API.Models.Entities
         }
         public Guid CategoryId { get; private set; }
         public string Name { get; private set; }
-        public Category Create(string name)
+        public static Category Create(string name)
         {
             return new Category
             {

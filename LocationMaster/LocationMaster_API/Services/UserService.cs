@@ -1,12 +1,11 @@
 ﻿using LocationMaster_API.Domain.Services;
 using LocationMaster_API.Domain.Services.Communication;
-using LocationMaster_API.Models;
-using LocationMaster_API.Models.Entities;
-using LocationMaster_API.Models.UnitOfWork;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using LocationMaster_API.Domain;
+using LocationMaster_API.Domain.Entities;
+using LocationMaster_API.Domain.UnitOfWork;
 
 namespace LocationMaster_API.Services
 {
@@ -41,7 +40,7 @@ namespace LocationMaster_API.Services
 
         }
 
-        public async Task<SaveUserResponse> UpdateAsync(Guid id, SaveUserResponse user)
+        public async Task<SaveUserResponse> UpdateAsync(Guid id, User user)
         {
             var existingUser = await _unitOfWork.Users.FindByIdAsync(id);
 
@@ -63,5 +62,7 @@ namespace LocationMaster_API.Services
                 return new SaveUserResponse($"An error occurred when updating the user: {ex.Message}");
             }
         }
+
+     
     }
 }

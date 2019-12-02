@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
-using LocationMaster_API.Models.Repository.IRepository;
 using System.Threading.Tasks;
+using LocationMaster_API.Domain.Repositories.Repositories;
+using Microsoft.EntityFrameworkCore;
 
-namespace LocationMaster_API.Models.Repository
+namespace LocationMaster_API.Domain.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {

@@ -1,8 +1,7 @@
-﻿using NetTopologySuite.Geometries;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace LocationMaster_API.Models.Entities
+namespace LocationMaster_API.Domain.Entities
 {
     public class Place
     {
@@ -22,7 +21,7 @@ namespace LocationMaster_API.Models.Entities
         public List<Photo> Photos { get; private set; }
         public List<Review> Reviews { get; private set; }
 
-        public Place Create(User owner, string locationName, string description, Category category, float ticketPrice)
+        public static Place Create(User owner, string locationName, string description, Category category, float ticketPrice)
         {
             return new Place
             {
