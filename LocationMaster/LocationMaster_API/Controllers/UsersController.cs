@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace LocationMaster_API.Controllers
 {
-    [Route("/api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("/api/v{v:apiVersion}/[controller]")]
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
