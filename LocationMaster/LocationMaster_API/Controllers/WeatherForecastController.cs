@@ -15,7 +15,7 @@ namespace LocationMaster_API.Controllers
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        }; 
+        };
 
         private readonly ILogger<WeatherForecastController> _logger;
 
@@ -48,6 +48,10 @@ namespace LocationMaster_API.Controllers
                 "Rainy", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
             };
             var rng = new Random();
+            using var unitOfWork = new UnitOfWork(_context);
+            unitOfWork.Users.Add(LocationMaster_API.Domain.Entities.User.Create("nuyonu", "parola", "ceva@gmail.com",
+                "firstName", "LastName"));
+            unitOfWork.Complete();
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {

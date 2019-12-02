@@ -11,7 +11,7 @@ namespace LocationMaster_API.Domain.Repositories.Repositories
         Task AddAsync(T entity);
 
         Task<T> FindByIdAsync(Guid id);
-       
+
         void Update(T entity);
         T GetById(int id);
 

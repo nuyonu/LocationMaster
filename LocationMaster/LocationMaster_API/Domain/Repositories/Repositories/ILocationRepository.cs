@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Pages;

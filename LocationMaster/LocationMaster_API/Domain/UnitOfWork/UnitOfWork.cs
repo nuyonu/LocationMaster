@@ -23,12 +23,12 @@ namespace LocationMaster_API.Domain.UnitOfWork
         {
             _context = context;
             Locations = new LocationsRepository(_context);
-            Users=new UserRepository(_context);
-            Attraction=new AttractionRepository(_context);
-            Ticket=new BuyedTicketRepository(_context);
-            Category=new CategoryRepository(_context);
-            Photo=new PhotoRepository(_context);
-            Review=new ReviewRepository(_context);
+            Users = new UserRepository(_context);
+            Attraction = new AttractionRepository(_context);
+            Ticket = new BuyedTicketRepository(_context);
+            Category = new CategoryRepository(_context);
+            Photo = new PhotoRepository(_context);
+            Review = new ReviewRepository(_context);
         }
 
         public async Task CompleteAsync()
