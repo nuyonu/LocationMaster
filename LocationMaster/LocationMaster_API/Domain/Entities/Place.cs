@@ -21,7 +21,7 @@ namespace LocationMaster_API.Domain.Entities
         public List<Photo> Photos { get; private set; }
         public List<Review> Reviews { get; private set; }
 
-        public Place Create(User owner, string locationName, string description, Category category, float ticketPrice)
+        public static Place Create(User owner, string locationName, string description, Category category, float ticketPrice)
         {
             return new Place
             {

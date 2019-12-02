@@ -1,11 +1,11 @@
 ﻿using LocationMaster_API.Domain.Entities;
-using LocationMaster_API.Domain.Repository.IRepository;
+using LocationMaster_API.Domain.Repositories.Repositories;
 
-namespace LocationMaster_API.Domain.Repository
+namespace LocationMaster_API.Domain.Repositories
 {
-    public class AttractionRepository:Repository<Attraction>,IAttractionRepository
+    public class AttractionRepository : Repository<Attraction>, IAttractionRepository
     {
-        public AttractionRepository(LocationMasterContext dbEntities):base(dbEntities)
+        public AttractionRepository(LocationMasterContext dbEntities) : base(dbEntities)
         {
             _dbEntities = dbEntities;
         }
@@ -13,4 +13,3 @@ namespace LocationMaster_API.Domain.Repository
         private readonly LocationMasterContext _dbEntities;
     }
 }
-

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace LocationMaster_API.Domain.Repository.IRepository
+namespace LocationMaster_API.Domain.Repositories.Repositories
 {
     public interface IRepository<T> where T : class
     {
@@ -11,6 +11,7 @@ namespace LocationMaster_API.Domain.Repository.IRepository
         Task AddAsync(T entity);
 
         Task<T> FindByIdAsync(Guid id);
+
         void Update(T entity);
         T GetById(int id);
 

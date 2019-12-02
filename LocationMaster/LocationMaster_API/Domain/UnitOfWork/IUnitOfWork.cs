@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using LocationMaster_API.Domain.Repository.IRepository;
+using LocationMaster_API.Domain.Repositories.Repositories;
 
 namespace LocationMaster_API.Domain.UnitOfWork
 {

@@ -1,5 +1,5 @@
-﻿using LocationMaster_API.Domain.Entities;
 using System;
+using LocationMaster_API.Domain.Entities;
 
 namespace LocationMaster_API.Resources
 {
@@ -12,6 +12,5 @@ namespace LocationMaster_API.Resources
         public string LastName { get; private set; }
         public string FirstName { get; private set; }
         public DateTime BirthDate { get; private set; }
-
     }
 }

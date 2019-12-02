@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Resources;
+using LocationMaster_API.Domain.Entities;
 
 namespace LocationMaster_API.Mapping
 {

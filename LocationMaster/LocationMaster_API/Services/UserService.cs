@@ -11,7 +11,6 @@ namespace LocationMaster_API.Services
 {
     public class UserService : IUserService
     {
-
         private readonly UnitOfWork _unitOfWork;
 
         public UserService(LocationMasterContext locationMasterContext)
@@ -59,7 +58,6 @@ namespace LocationMaster_API.Services
                 // Do some logging stuff
                 return new UserResponse($"An error occurred when saving the user: {ex.Message}");
             }
-
         }
 
         public async Task<UserResponse> UpdateAsync(Guid id, User user)

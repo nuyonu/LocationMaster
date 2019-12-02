@@ -1,10 +1,9 @@
-﻿
 using LocationMaster_API.Domain.Entities;
-using LocationMaster_API.Domain.Repository.IRepository;
+using LocationMaster_API.Domain.Repositories.Repositories;
 
-namespace LocationMaster_API.Domain.Repository
+namespace LocationMaster_API.Domain.Repositories
 {
-    public class BuyedTicketRepository:Repository<Attraction>,IBuyedTicketRepository
+    public class BuyedTicketRepository : Repository<Attraction>, IBuyedTicketRepository
     {
         public BuyedTicketRepository(LocationMasterContext context) : base(context)
         {
