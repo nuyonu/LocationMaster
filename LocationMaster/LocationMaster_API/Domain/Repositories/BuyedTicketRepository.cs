@@ -1,8 +1,7 @@
-﻿
-using LocationMaster_API.Models.Entities;
-using LocationMaster_API.Models.Repository.IRepository;
+﻿using LocationMaster_API.Domain.Entities;
+using LocationMaster_API.Domain.Repositories.Repositories;
 
-namespace LocationMaster_API.Models.Repository
+namespace LocationMaster_API.Domain.Repositories
 {
     public class BuyedTicketRepository:Repository<Attraction>,IBuyedTicketRepository
     {

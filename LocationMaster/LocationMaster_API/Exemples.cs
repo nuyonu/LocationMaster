@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LocationMaster_API.Models;
-using LocationMaster_API.Models.Entities;
-using LocationMaster_API.Models.UnitOfWork;
-
-namespace LocationMaster_API
+﻿namespace LocationMaster_API
 {
     public class Exemples
     {

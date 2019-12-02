@@ -1,12 +1,14 @@
-﻿using LocationMaster_API.Domain.Services;
-using LocationMaster_API.Models;
+﻿using LocationMaster_API.Domain;
+using LocationMaster_API.Domain.Services;
 using LocationMaster_API.Services;
+using LocationMaster_API.Services.IServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
+using Westwind.AspNetCore.LiveReload;
 
-namespace LocationMaster_API
+namespace LocationMaster_API.Extensions
 {
     public static class ServiceExtension
     {
@@ -35,6 +37,17 @@ namespace LocationMaster_API
         public static void ConfigureDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPlaceService, PlacesService>();
+        }
+
+        public static void UseLiveDev(this IServiceCollection services)
+        {
+            services.AddLiveReload(config =>
+            {
+                // optional - use config instead
+                config.LiveReloadEnabled = true;
+                config.FolderToMonitor = ".";
+            });
         }
     }
 }

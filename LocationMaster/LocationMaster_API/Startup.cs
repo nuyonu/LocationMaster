@@ -1,12 +1,11 @@
 using AutoMapper;
-using LocationMaster_API.Models;
+using LocationMaster_API.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Npgsql;
+using Westwind.AspNetCore.LiveReload;
 
 namespace LocationMaster_API
 {
@@ -27,6 +26,7 @@ namespace LocationMaster_API
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureDependencyInjection();
             services.ConfigureDatabaseBuilder(Configuration);
+            services.UseLiveDev();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,13 +40,12 @@ namespace LocationMaster_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseStaticFiles();
+            app.UseLiveReload();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }
