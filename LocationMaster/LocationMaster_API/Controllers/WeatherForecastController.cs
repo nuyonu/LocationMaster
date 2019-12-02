@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using LocationMaster_API.Domain;
-using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Domain.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

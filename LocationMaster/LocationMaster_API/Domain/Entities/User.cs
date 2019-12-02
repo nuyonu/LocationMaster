@@ -1,6 +1,4 @@
-﻿using LocationMaster_API.Domain.Services.Communication;
-using NetTopologySuite.Geometries;
-using System;
+﻿using System;
 
 namespace LocationMaster_API.Domain.Entities
 {
