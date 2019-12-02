@@ -1,7 +1,7 @@
-﻿using LocationMaster_API.Models.Entities;
-using LocationMaster_API.Models.Repository.IRepository;
+﻿using LocationMaster_API.Domain.Entities;
+using LocationMaster_API.Domain.Repository.IRepository;
 
-namespace LocationMaster_API.Models.Repository
+namespace LocationMaster_API.Domain.Repository
 {
     public class ReviewRepository : Repository<Review>, IReviewRepository
     {

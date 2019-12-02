@@ -1,6 +1,6 @@
-﻿using LocationMaster_API.Models.Entities;
+﻿using LocationMaster_API.Domain.Entities;
 
-namespace LocationMaster_API.Models.Repository.IRepository
+namespace LocationMaster_API.Domain.Repository.IRepository
 {
     public interface IBuyedTicketRepository:IRepository<Attraction>
     {

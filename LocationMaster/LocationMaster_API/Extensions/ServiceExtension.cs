@@ -1,5 +1,5 @@
 ﻿using LocationMaster_API.Domain.Services;
-using LocationMaster_API.Models;
+using LocationMaster_API.Domain;
 using LocationMaster_API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LocationMaster_API.Models.Entities
+namespace LocationMaster_API.Domain.Entities
 {
     public class Category
     {

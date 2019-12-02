@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace LocationMaster_API.Models.Repository.IRepository
+namespace LocationMaster_API.Domain.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {

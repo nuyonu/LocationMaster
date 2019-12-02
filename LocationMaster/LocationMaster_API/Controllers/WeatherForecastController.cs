@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using LocationMaster_API.Models;
-using LocationMaster_API.Models.Entities;
-using LocationMaster_API.Models.UnitOfWork;
+using LocationMaster_API.Domain;
+using LocationMaster_API.Domain.Entities;
+using LocationMaster_API.Domain.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -31,7 +31,7 @@ namespace LocationMaster_API.Controllers
         {
             var rng = new Random();
             using var unitOfWork = new UnitOfWork(_context);
-            unitOfWork.Users.Add(LocationMaster_API.Models.Entities.User.Create("nuyonu", "parola", "ceva@gmail.com", "firstName", "LastName"));
+            unitOfWork.Users.Add(LocationMaster_API.Domain.Entities.User.Create("nuyonu", "parola", "ceva@gmail.com", "firstName", "LastName"));
             unitOfWork.Complete();
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

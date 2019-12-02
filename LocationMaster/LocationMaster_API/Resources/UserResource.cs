@@ -1,4 +1,4 @@
-﻿using LocationMaster_API.Models.Entities;
+﻿using LocationMaster_API.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

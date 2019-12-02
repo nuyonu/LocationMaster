@@ -1,5 +1,5 @@
 using AutoMapper;
-using LocationMaster_API.Models;
+using LocationMaster_API.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

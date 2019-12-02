@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LocationMaster_API.Models;
-using LocationMaster_API.Models.Entities;
-using LocationMaster_API.Models.UnitOfWork;
+using LocationMaster_API.Domain;
+using LocationMaster_API.Domain.Entities;
+using LocationMaster_API.Domain.UnitOfWork;
 
 namespace LocationMaster_API
 {

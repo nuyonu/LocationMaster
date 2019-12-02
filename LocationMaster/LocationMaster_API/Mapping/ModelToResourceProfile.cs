@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LocationMaster_API.Models.Entities;
+using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Resources;
 using System;
 using System.Collections.Generic;
