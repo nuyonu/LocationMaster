@@ -2,6 +2,7 @@ using LocationMaster_API.Domain;
 using LocationMaster_API.Domain.Services;
 using LocationMaster_API.Services;
 using LocationMaster_API.Services.IServices;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,15 @@ namespace LocationMaster_API.Extensions
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPlaceService, PlacesService>();
+        }
+
+        public static void ConfigureApiVersioning(this IServiceCollection services)
+        {
+            services.AddApiVersioning(o => {
+                o.ReportApiVersions = true;
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+            });
         }
 
         public static void UseLiveDev(this IServiceCollection services)
