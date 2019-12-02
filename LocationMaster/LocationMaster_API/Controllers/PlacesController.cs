@@ -28,8 +28,8 @@ namespace LocationMaster_API.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{page}")]
-        public ActionResult Get(int page, int sizePage = 10, bool descending = false, string orderBy = "category",
+        [HttpGet("/pages")]
+        public ActionResult Get(int page=1, int sizePage = 10, bool descending = false, string orderBy = "category",
             string search = null)
         {
             Console.Write("here");
@@ -44,6 +44,8 @@ namespace LocationMaster_API.Controllers
 //                return BadRequest("2");
             return Ok(result);
         }
+
+//        [HttpGet("{}")]
 
         [HttpGet]
         public async Task<IEnumerable<Place>> GetAll()
