@@ -1,4 +1,4 @@
-﻿using LocationMaster_API.Domain;
+using LocationMaster_API.Domain;
 using LocationMaster_API.Domain.Services;
 using LocationMaster_API.Services;
 using LocationMaster_API.Services.IServices;
@@ -18,8 +18,8 @@ namespace LocationMaster_API.Extensions
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
             });
         }
 

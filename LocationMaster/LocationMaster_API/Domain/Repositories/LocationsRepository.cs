@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,13 +22,13 @@ namespace LocationMaster_API.Domain.Repositories
             return new List<Place>();
         }
 
-       public PagedResult<Place> GetPage<TKey>(int page, int pageSize, bool @descending, string search,
+        public PagedResult<Place> GetPage<TKey>(int page, int pageSize, bool @descending, string search,
             Func<Place, TKey> orderBy) where TKey : class
-       {
-           return _dbEntities.Places.GetPaged(page, pageSize);
+        {
+            return _dbEntities.Places.GetPaged(page, pageSize);
 //                Where(Search(search)).AsQueryable()
 //                .GetPagedResult(orderBy, page, pageSize, descending);
-       }
+        }
 
 
         private Func<Place, bool> Search(string search)

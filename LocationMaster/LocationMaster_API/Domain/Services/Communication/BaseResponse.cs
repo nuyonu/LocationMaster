@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace LocationMaster_API.Domain.Services.Communication
+﻿namespace LocationMaster_API.Domain.Services.Communication
 {
     public abstract class BaseResponse
     {

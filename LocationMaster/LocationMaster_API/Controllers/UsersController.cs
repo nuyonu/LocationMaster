@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using LocationMaster_API.Domain.Services;
 using LocationMaster_API.Extensions;
+using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LocationMaster_API.Domain.Entities;
 
 namespace LocationMaster_API.Controllers
 {
@@ -59,6 +59,18 @@ namespace LocationMaster_API.Controllers
 
             var user = _mapper.Map<SaveUserResource, User>(resource);
             var result = await _userService.UpdateAsync(id, user);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var userResource = _mapper.Map<User, UserResource>(result.User);
+            return Ok(userResource);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            var result = await _userService.DeleteAsync(id);
 
             if (!result.Success)
                 return BadRequest(result.Message);
