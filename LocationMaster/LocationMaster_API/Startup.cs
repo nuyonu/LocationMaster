@@ -26,6 +26,7 @@ namespace LocationMaster_API
             services.AddAutoMapper(typeof(Startup));
             services.ConfigureDependencyInjection();
             services.ConfigureDatabaseBuilder(Configuration);
+            services.ConfigureApiVersioning();
             services.UseLiveDev();
         }
 
