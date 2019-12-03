@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LocationMaster_API.Services.IServices;
 
 namespace LocationMaster_API.Controllers
 {
@@ -41,7 +42,9 @@ namespace LocationMaster_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var user = _mapper.Map<SaveUserResource, User>(resource);
+/*            var user = _mapper.Map<SaveUserResource, User>(resource);*/
+            var user = LocationMaster_API.Domain.Entities.User.Create(resource.Username,
+                            SecurePasswordHasherHelperService.Hash(resource.Password), resource.Email, resource.LastName, resource.FirstName);
 
             var result = await _userService.SaveAsync(user);
 

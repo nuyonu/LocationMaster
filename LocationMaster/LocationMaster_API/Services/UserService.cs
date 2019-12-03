@@ -34,20 +34,25 @@ namespace LocationMaster_API.Services
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
                 return new UserResponse($"An error occurred when deleting the user: {ex.Message}");
             }
         }
 
         public async Task<IEnumerable<User>> ListAsync()
         {
-            return await _unitOfWork.Users.ListAsync();
+            return await _unitOfWork.Users.GetAllUsersAsync();
         }
 
         public async Task<UserResponse> SaveAsync(User user)
         {
+            var existingUser = await _unitOfWork.Users.FindByUsername(user.Username);
+
+            if (existingUser != null)
+                return new UserResponse("Username is alredy used.");
+
             try
             {
+                user.SetProfileImage(Photo.Create("/StaticFiles/Images/ProfileImages/DefaultProfileImage"));
                 await _unitOfWork.Users.AddAsync(user);
                 await _unitOfWork.CompleteAsync();
 
@@ -55,7 +60,6 @@ namespace LocationMaster_API.Services
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
                 return new UserResponse($"An error occurred when saving the user: {ex.Message}");
             }
         }
@@ -78,7 +82,6 @@ namespace LocationMaster_API.Services
             }
             catch (Exception ex)
             {
-                // Do some logging stuff
                 return new UserResponse($"An error occurred when updating the user: {ex.Message}");
             }
         }

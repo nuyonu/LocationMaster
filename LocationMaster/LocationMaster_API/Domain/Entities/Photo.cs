@@ -10,7 +10,7 @@ namespace LocationMaster_API.Domain.Entities
         }
         public Guid PhotoId { get; private set; }
         public string Path { get; private set; }
-        public Photo Create(string path)
+        public static Photo Create(string path)
         {
             return new Photo
             {
