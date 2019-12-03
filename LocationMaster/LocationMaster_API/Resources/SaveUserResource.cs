@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LocationMaster_API.Resources.CustomValidations;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace LocationMaster_API.Resources
 {
@@ -20,5 +22,8 @@ namespace LocationMaster_API.Resources
         [Required]
         [MaxLength(100)]
         public string FirstName { get; set; }
+        [Required]
+        [DateOfBirth(MinAge = 0, MaxAge = 150)]
+        public DateTime BirthDate { get; set; }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Pages;
 
 namespace LocationMaster_API.Extensions
