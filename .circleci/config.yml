@@ -8,12 +8,12 @@ jobs:
      - run:
          name: Restore packages
          command:
-           dotnet restore
+           dotnet restore /LocationMaster/LocationMaster_API/LocationMaster_API.csproj
      - run:
          name: Build App
          command:
-           dotnet build
+           dotnet build /LocationMaster/LocationMaster_API/LocationMaster_API.csproj
      - run:
          name: Run App
          command:
-           dotnet run
+           dotnet run /LocationMaster/LocationMaster_API/LocationMaster_API.csproj
