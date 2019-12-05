@@ -49,7 +49,7 @@ namespace LocationMaster_API.Controllers
             return await _placeService.ListAsync();
         }
 
-        // GET api/values/5
+/*        // GET api/values/5
         [HttpPost]
         public ActionResult Get()
         {
@@ -71,7 +71,7 @@ namespace LocationMaster_API.Controllers
             unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
             unitOfWork.Complete();
             return Ok("dsa");
-        }
+        }*/
 
         // POST api/values
         [HttpPost]
