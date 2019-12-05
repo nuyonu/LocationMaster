@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using Npgsql;
+using Swashbuckle.AspNetCore.Swagger;
 using Westwind.AspNetCore.LiveReload;
 
 namespace LocationMaster_API.Extensions
@@ -57,6 +59,14 @@ namespace LocationMaster_API.Extensions
                 // optional - use config instead
                 config.LiveReloadEnabled = true;
                 config.FolderToMonitor = ".";
+            });
+        }
+
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "LocationMaster-API", Version = "v1" });
             });
         }
     }
