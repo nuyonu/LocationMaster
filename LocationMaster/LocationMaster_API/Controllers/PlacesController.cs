@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
 using LocationMaster_API.Domain;
 using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Domain.UnitOfWork;
-using LocationMaster_API.Extensions;
 using LocationMaster_API.Services;
 using LocationMaster_API.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +51,7 @@ namespace LocationMaster_API.Controllers
             return await _placeService.ListAsync();
         }
 
-        // GET api/values/5
+/*        // GET api/values/5
         [HttpPost]
         public ActionResult Get()
         {
@@ -75,7 +73,7 @@ namespace LocationMaster_API.Controllers
             unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
             unitOfWork.Complete();
             return Ok("dsa");
-        }
+        }*/
 
         // POST api/values
         [HttpPost]

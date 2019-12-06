@@ -28,6 +28,7 @@ namespace LocationMaster_API
             services.ConfigureDatabaseBuilder(Configuration);
             services.ConfigureApiVersioning();
             services.UseLiveDev();
+            services.ConfigureSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +38,13 @@ namespace LocationMaster_API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "LocationMasterAPI_V1");
+            });
 
             app.UseHttpsRedirection();
 

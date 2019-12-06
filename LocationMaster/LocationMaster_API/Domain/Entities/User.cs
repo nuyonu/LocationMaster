@@ -31,5 +31,10 @@ namespace LocationMaster_API.Domain.Entities
             };
             return user;
         }
+
+        public void SetProfileImage(Photo profileImage)
+        {
+            ProfileImage = profileImage;
+        }
     }
 }
