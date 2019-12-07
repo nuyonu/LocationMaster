@@ -1,0 +1,105 @@
+﻿/* The navigation bar */
+.custom_navbar {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 10px 20px 10px 20px;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+}
+
+    .custom_navbar a {
+        text-decoration: none;
+        color: #325dff;
+    }
+
+        /*.custom_navbar a:visited {
+            color: #325dff;
+        }*/
+
+.custom_navbar__links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0px 0px 0px 15px;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+}
+
+.custom_navbar__logo-image {
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.custom_navbar__right_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    width: auto;
+}
+
+.nav-item {
+    margin: 0 5px 0 5px;
+}
+
+    .nav-item.active a {
+        color: rgb(1, 15, 68);
+    }
+
+    .nav-item span {
+        margin: 0px 0px 0px 5px;
+    }
+
+    .nav-item.active {
+        color: rgb(1, 15, 68);
+    }
+
+.logo-image {
+    display: flex;
+    height: 32px;
+}
+
+.profile-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 15px;
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .custom_navbar__logo-image {
+        flex: none;
+    }
+
+    .custom_navbar__links {
+        flex: none;
+    }
+}
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+    .custom_navbar {
+        flex-direction: column;
+    }
+
+    .custom_navbar__links {
+        justify-content: center;
+    }
+}

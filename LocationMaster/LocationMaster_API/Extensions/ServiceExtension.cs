@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Npgsql;
-using Swashbuckle.AspNetCore.Swagger;
 using Westwind.AspNetCore.LiveReload;
 
 namespace LocationMaster_API.Extensions
