@@ -1,0 +1,21 @@
+﻿<div class="top-page pt-5">
+    <div class="page-title">
+        <h1 class="mt-5 text-center pb-2">@PageTitle</h1>
+    </div>
+    @if (WithSearchBar)
+    {
+        <form class="d-flex justify-content-center">
+            <div class="w-50 form-group">
+                <input type="text" class="form-control form-control-lg" placeholder="Search...">
+            </div>
+        </form>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string PageTitle { get; set; } = "No Page Title";
+
+    [Parameter]
+    public bool WithSearchBar { get; set; } = false;
+}

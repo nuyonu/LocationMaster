@@ -1,24 +1,17 @@
-﻿<div class="custom_navbar">
+﻿<div class="custom_navbar shadow p-3 mb-5 bg-white rounded">
     <div class="custom_navbar__links">
-        <div class="nav-item active">
-            <a href="#"><i class="fa fa-home"></i><span>Home</span></a>
-        </div>
-        <div class="nav-item">
+        <NavLink class="nav-item" href="" Match="NavLinkMatch.All"><i class="fa fa-home"></i><span>Home</span></NavLink>
             <div class="dropdown show">
-                <a class="dropdown-toggle" href="#" role="button" id="dropDownMenuPlaces" data-toggle="dropdown"
+                <a class="dropdown-toggle nav-item" href="#" role="button" id="dropDownMenuPlaces" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-map-marker"></i><span>Places</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropDownMenuPlaces">
-                    <a class="dropdown-item" href="#">Find Places</a>
-                    <a class="dropdown-item" href="#">Recommendations</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <NavLink class="dropdown-item" href="counter">Find Places</NavLink>
+                    <NavLink class="dropdown-item" href="fetchdata">Recommendations</NavLink>
                 </div>
             </div>
-        </div>
-        <div class="nav-item">
-            <a href="#"><i class="fa fa-phone"></i><span>Contact us</span></a>
-        </div>
+        <NavLink class="nav-item" href="#"><i class="fa fa-phone"></i><span>Contact us</span></NavLink>
     </div>
     <div class="custom_navbar__logo-image">
         <div class="nav-item">
@@ -40,9 +33,9 @@
                 <img class="profile-image dropdown-toggle" src="images/logo/LocationMasterLogo.png" role="button"
                      id="dropDownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="dropdown-menu" aria-labelledby="dropDownMenuProfile">
-                    <p class="dropdown-item" href="#">John Doe</p>
-                    <a class="dropdown-item" href="#">My Profile</a>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <p class="dropdown-item">John Doe</p>
+                    <NavLink class="dropdown-item" href="#">My Profile</NavLink>
+                    <button class="btn btn-primary dropdown-item" href="#">Logout</button>
                 </div>
             </div>
         </div>
@@ -50,5 +43,4 @@
 </div>
 
 @code {
-
 }
