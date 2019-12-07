@@ -1,0 +1,15 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "nuyonu-github",
+    "Name": "nuyonu"
+  },
+  "ProjectKey": "nuyonu_LocationMaster",
+  "ProjectName": "LocationMaster",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWmuMYCpO5STJbyX08Al",
+      "ProfileTimestamp": "2019-10-29T10:27:27+02:00"
+    }
+  }
+}

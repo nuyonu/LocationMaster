@@ -74,7 +74,6 @@ namespace LocationMaster_API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-/*            var user = _mapper.Map<SaveUserResource, User>(resource);*/
             var user = LocationMaster_API.Domain.Entities.User.Create(resource.Username,
                             SecurePasswordHasherHelperService.Hash(resource.Password), resource.Email, resource.LastName, resource.FirstName);
 
