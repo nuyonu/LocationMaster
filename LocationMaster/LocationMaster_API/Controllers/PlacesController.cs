@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using LocationMaster_API.Domain;
@@ -9,9 +9,7 @@ using LocationMaster_API.Domain.Services;
 using LocationMaster_API.Domain.Services.Communication;
 using LocationMaster_API.Domain.UnitOfWork;
 using LocationMaster_API.Extensions;
-using LocationMaster_API.Reponses;
 using LocationMaster_API.Resources;
-using LocationMaster_API.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
