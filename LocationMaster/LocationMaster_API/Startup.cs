@@ -41,10 +41,7 @@ namespace LocationMaster_API
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "LocationMasterAPI_V1");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "LocationMasterAPI_V1"); });
 
             app.UseHttpsRedirection();
 
@@ -56,5 +53,6 @@ namespace LocationMaster_API
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
+
     }
 }
