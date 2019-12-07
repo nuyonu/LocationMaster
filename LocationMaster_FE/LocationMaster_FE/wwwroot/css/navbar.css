@@ -19,9 +19,9 @@
         color: #325dff;
     }
 
-        .custom_navbar a:visited {
+        /*.custom_navbar a:visited {
             color: #325dff;
-        }
+        }*/
 
 .custom_navbar__links {
     display: flex;
@@ -56,8 +56,12 @@
         color: rgb(1, 15, 68);
     }
 
-    .nav-item a > span {
+    .nav-item span {
         margin: 0px 0px 0px 5px;
+    }
+
+    .nav-item.active {
+        color: rgb(1, 15, 68);
     }
 
 .logo-image {
