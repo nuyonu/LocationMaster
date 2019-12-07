@@ -11,6 +11,6 @@ namespace LocationMaster_API.Pages
 
         public int FirstRowOnPage => (CurrentPage - 1) * PageSize + 1;
         public int LastRowOnPage => Math.Min(CurrentPage * PageSize, RowCount);
-        
+
     }
 }
