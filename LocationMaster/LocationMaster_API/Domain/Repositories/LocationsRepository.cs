@@ -1,9 +1,10 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Domain.Repositories.Repositories;
 using LocationMaster_API.Extensions;
 using LocationMaster_API.Pages;
+using Microsoft.EntityFrameworkCore;
 
 namespace LocationMaster_API.Domain.Repositories
 {
@@ -15,27 +16,24 @@ namespace LocationMaster_API.Domain.Repositories
         }
 
 
-        public IEnumerable<Place> GetBestPlaces(int amountOfPlaces)
+        public PagedResult<Place> GetPage(int page, int pageSize, bool @descending, string search,
+            string orderBy)
         {
-            return new List<Place>();
+            return search == null
+                ? _dbEntities.Places.Include(s => s.Category).Include(s => s.Owner)
+                    .CustomOrderPlace(orderBy, @descending).GetPaged(page, pageSize)
+                : _dbEntities.Places.Include(s => s.Category).Include(s => s.Owner).CustomSearch(search)
+                    .CustomOrderPlace(orderBy, @descending)
+                    .GetPaged(page, pageSize);
         }
 
-        public PagedResult<Place> GetPage<TKey>(int page, int pageSize, bool @descending, string search,
-            Func<Place, TKey> orderBy) where TKey : class
+        public Place GetById(Guid id)
         {
-            return _dbEntities.Places.GetPaged(page, pageSize);
-//                Where(Search(search)).AsQueryable()
-//                .GetPagedResult(orderBy, page, pageSize, descending);
+            var temp = _dbEntities.Places.Include(s => s.Category)
+                .Include(s => s.Owner).ToList();
+            return temp.Count == 0 ? null : temp.First();
         }
 
-
-        private Func<Place, bool> Search(string search)
-        {
-            return s => s.Owner.Email.ToLower().Contains(search) ||
-                        s.Owner.Username.ToLower().Contains(search) ||
-                        s.Category.Name.ToLower().Contains(search) ||
-                        s.LocationName.ToLower().Contains(search);
-        }
 
         private readonly LocationMasterContext _dbEntities;
     }

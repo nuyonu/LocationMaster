@@ -5,17 +5,19 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LocationMaster_API.Domain;
 using LocationMaster_API.Domain.Entities;
+using LocationMaster_API.Domain.Services;
+using LocationMaster_API.Domain.Services.Communication;
 using LocationMaster_API.Domain.UnitOfWork;
-using LocationMaster_API.Services;
-using LocationMaster_API.Services.IServices;
+using LocationMaster_API.Extensions;
+using LocationMaster_API.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace LocationMaster_API.Controllers
 {
-    [Route("/api/[controller]")]
-    [ApiController]
-    public class PlacesController : ControllerBase
+    [ApiVersion("1.0")]
+    [Route("/api/v{v:apiVersion}/[controller]")]
+    public class PlacesController : Controller
     {
         public PlacesController(IMapper mapper, ILogger<PlacesController> logger, LocationMasterContext context,
             IPlaceService placeService)
@@ -26,70 +28,62 @@ namespace LocationMaster_API.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{page}")]
-        public ActionResult Get(int page, int sizePage = 10, bool descending = false, string orderBy = "category",
+        [HttpGet("pages")]
+        public ActionResult Get(int page = 1, int sizePage = 10, bool descending = false, string orderBy = "category",
             string search = null)
         {
-            Console.Write("here");
-            if (page < 1)
-                return BadRequest("1");
-
-            var service=new PlacesService(_context);
-//            var result = service.GetPage(page, sizePage, descending, o
-            var unit=new UnitOfWork(_context);
-            var result = unit.Locations.GetPage(page, sizePage, false, " ", s => s.Attractions);
-//            if (page > result.PageCount)
-//                return BadRequest("2");
-            return Ok(result);
+            var response = _placeService.GetPage(page, sizePage, descending, orderBy, search);
+            if (!response.Success)
+                return BadRequest(response);
+            return Ok(response);
         }
 
+//todo transform to view
         [HttpGet]
-        public async Task<IEnumerable<Place>> GetAll()
+        public async Task<IEnumerable<PlaceInfoResource>> GetAll()
         {
-            return await _placeService.ListAsync();
+            var places = await _placeService.ListAsync();
+            return await Task.Run(() => places.Select(place => new PlaceInfoResource(place)).ToList());
         }
 
-/*        // GET api/values/5
-        [HttpPost]
-        public ActionResult Get()
+        [HttpGet("{id}")]
+        public PlaceInfoResponse GetInfoForPlace(Guid id)
         {
+            var response = _placeService.GetInfo(id);
+            return response;
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] SavePlaceResource resource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
             var unitOfWork = new UnitOfWork(_context);
-            var u = unitOfWork.Users.Find(e => e.Username == "use2r").First();
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Locations.Add(Place.Create(u, "hete", "sdad", Category.Create("das"), 12.0f));
-            unitOfWork.Complete();
-            return Ok("dsa");
-        }*/
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
+            var user = await unitOfWork.Users.FindByIdAsync(resource.OwnerId);
+            if (user == null)
+                return BadRequest("Owner not found");
+            var location = Place.Create(user, resource.Name, resource.Description, null, resource.TicketPrice);
+            var result = await _placeService.SaveAsync(location);
+            if (!result.Success)
+                return BadRequest(result.Message);
+            return Created($"/api/v1/places/{location.PlaceId}", resource);
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(Guid id)
         {
+            var resullt = await _placeService.DeleteAsync(id);
+            if (!resullt.Success)
+                return BadRequest(resullt.Message);
+            return NoContent();
         }
+
 
         private readonly IMapper _mapper;
         private readonly ILogger<PlacesController> _logger;
