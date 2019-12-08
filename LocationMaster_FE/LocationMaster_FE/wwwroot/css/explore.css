@@ -1,0 +1,22 @@
+﻿.explore-container {
+    max-width: 1670px;
+}
+
+.explore-card {
+    margin-bottom: 20px;
+    border-color: #325DFF;
+}
+
+.explore-header {
+    border-color: #88A1FF;
+    background-color: #88A1FF1C;
+}
+
+.explore-category-heading {
+    font-size: 2.5rem;
+    color: #325DFF;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    font-family: 'Georgia', sans-serif;
+    background-color: transparent;
+    border: 1px solid transparent;
+}
