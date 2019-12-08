@@ -6,17 +6,32 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-GET http://localhost:62414/api/users
+GET http://localhost:53511/api/users
 Accept: */*
 Content-Type: application/json
 Cache-Control: no-cache
+
 ###
-GET http://localhost:62414/api/places/2
+
+#get all places
+GET http://localhost:53511/api/places
 Accept: */*
 Cache-Control: no-cache
 
 ###
-GET http://localhost:62414/api/places/2/4
+#get a page of places
+GET http://localhost:53511/api/places/pages?page=2
 Accept: */*
 Cache-Control: no-cache
+
+###
+POST http://localhost:80/api/item
+Content-Type: application/json
+
+{
+  "aa": {
+    "ass": 1
+  }
+}
+
 ###
