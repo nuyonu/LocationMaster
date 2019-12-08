@@ -52,6 +52,7 @@
 
 .location-card img {
     border-radius: 12px;
+    height: 100%;
 }
 
 .location-card .view-location {
