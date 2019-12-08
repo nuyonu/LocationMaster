@@ -1,15 +1,18 @@
-﻿<div class="top-page pt-5">
-    <div class="page-title">
-        <h1 class="mt-5 text-center pb-2">@PageTitle</h1>
+﻿@{ CheckClass();}
+<div class="top-page">
+    <div class="top-page-opacity pt-5 mb-5">
+        <div class="page-title @WithoutsearchBarClass">
+            <h1 class="mt-5 text-center pb-2 display-2 color-white">@PageTitle</h1>
+        </div>
+        @if (WithSearchBar)
+        {
+            <form class="d-flex justify-content-center">
+                <div class="w-50 form-group">
+                    <input type="text" class="form-control form-control-lg" placeholder="Search...">
+                </div>
+            </form>
+        }
     </div>
-    @if (WithSearchBar)
-    {
-        <form class="d-flex justify-content-center">
-            <div class="w-50 form-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Search...">
-            </div>
-        </form>
-    }
 </div>
 
 @code {
@@ -18,4 +21,14 @@
 
     [Parameter]
     public bool WithSearchBar { get; set; } = false;
+
+    private string WithoutsearchBarClass { get; set; }
+
+    void CheckClass()
+    {
+        if (!WithSearchBar)
+            WithoutsearchBarClass = "pb-64px";
+        else
+            WithoutsearchBarClass = null;
+    }
 }
