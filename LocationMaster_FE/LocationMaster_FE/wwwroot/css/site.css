@@ -6,14 +6,12 @@ body {
     margin: 0px;
     font-family: "Roboto", sans-serif;
     background: white;
+    height: 100%;
+    width: 100%;
 }
 
 p {
     margin: 0px;
-}
-
-.pb-64px {
-    padding-bottom: 64px;
 }
 
 .main-container {
@@ -37,4 +35,43 @@ p {
     position: absolute;
     right: 0.75rem;
     top: 0.5rem;
+}
+
+/*Spacing*/
+.pb-64px {
+    padding-bottom: 64px;
+}
+
+.mt-100px {
+    margin-top: 100px;
+}
+
+/*Borders*/
+.border-bottom-3px {
+    border: none;
+    border-bottom: 2px solid!important;
+}
+
+/*Colors and others*/
+.c-325DFF {
+    color: #325DFF;
+}
+
+.bg-325DFF {
+    background: #325DFF;
+}
+
+/*Font-size*/
+.font-size-25px {
+    font-size: 25px;
+}
+
+/*Opacity*/
+.o-50 {
+    opacity: 0.50;
+}
+
+/*Cursors*/
+.cursor-pointer {
+    cursor: pointer;
 }
