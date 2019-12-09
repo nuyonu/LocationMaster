@@ -12,6 +12,10 @@ p {
     margin: 0px;
 }
 
+.pb-64px {
+    padding-bottom: 64px;
+}
+
 .main-container {
 
 }
