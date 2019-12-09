@@ -28,18 +28,6 @@ namespace LocationMaster_API.Controllers
         }
 
         [HttpGet]
-        /// <summary>
-        /// Returns all users.
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     GET /api/users
-        ///
-        /// </remarks>
-        /// <param name="item"></param>
-        /// <returns>All users.</returns>
-        /// <response code="200">Returns all users</response>
         public async Task<IEnumerable<UserResource>> GetAllAsync()
         {
             var users = await _userService.ListAsync();
@@ -49,26 +37,6 @@ namespace LocationMaster_API.Controllers
         }
 
         [HttpPost]
-        /// <summary>
-        /// Creates a new User.
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /api/users
-        ///     {
-        ///        "username": "RandomUser",
-        ///        "password": "StrongPassword!.",
-        ///        "email": "RandomEmail@email.com",
-        ///        "lastName": "Coman",
-        ///        "firstName": "Florinel",
-        ///        "birthDate": "1997-12-04T22:48:00.526Z"
-        ///     }
-        ///
-        /// </remarks>
-        /// <returns>A newly created user</returns>
-        /// <response code="201">Returns the newly created user</response>
-        /// <response code="400">If the item is null</response>  
         public async Task<IActionResult> PostAsync([FromBody] SaveUserResource resource)
         {
             if (!ModelState.IsValid)
