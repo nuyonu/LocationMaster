@@ -1,0 +1,78 @@
+﻿.places-body {
+    position: absolute;
+    height: 1080px;
+    width: 100%;
+    background: #F9F9F9;
+}
+
+.places-body-menu {
+    height: 100%;
+    width: 300px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 8px #888888;
+    display: flex;
+    flex-direction: column;
+}
+
+.places-custom-range {
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+
+.places-none {
+    margin: 0;
+    font-family: 'Montserrat Semi Bold', sans-serif;
+    color: #2C2C2C;
+}
+
+.place-menu {
+    margin: 10%;
+    border-bottom: 1px solid #D6D6D6;
+}
+
+#min-price, #max-price {
+    width: 30px;
+}
+
+.places-custom-range-container {
+    margin-bottom: 15px;
+}
+
+
+.places-love-count, .love > span > label, .places-text, .places-custom-range > span > label {
+    font-family: 'Montserrat Light', sans-serif;
+    color: #2C2C2C;
+    font-size: 16px;
+}
+
+.place-menu > h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+
+.fa-heart {
+    color: #FB2626;
+    margin-right: 9px;
+    font-size: 20px;
+}
+
+
+.places-component-line {
+    display: flex;
+    margin-bottom: 15px;
+    flex-direction: row;
+    width: 100%;
+}
+
+.love {
+    justify-content: space-between;
+}
+
+.content-body-places {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

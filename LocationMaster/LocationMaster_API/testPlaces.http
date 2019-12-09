@@ -20,12 +20,14 @@ Cache-Control: no-cache
 
 ###
 #get a page of places
-GET http://localhost:53511/api/places/pages?page=2
+GET http://localhost:53511/api/v1/Places/pages?page=1&sizePage=5&descending=true&orderBy=owner
 Accept: */*
 Cache-Control: no-cache
 
 ###
-POST http://localhost:80/api/item
+#get a place
+GET http://localhost:53511/api/v1/Places/b08218d8-b0be-40e3-97e3-51900943fd98
+Accept: */*
 Content-Type: application/json
 
 {

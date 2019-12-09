@@ -13,13 +13,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Shared\SearchLocations\SearchMenu\" />
     <Folder Include="wwwroot\images\logo\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Watch Include="**\*.html"/>
-    <Watch Include="**\*.razor"/>
-    <Watch Include="**\*.cs"/>
+    <Watch Include="**\*.html" />
+    <Watch Include="**\*.razor" />
+    <Watch Include="**\*.cs" />
   </ItemGroup>
 
 </Project>

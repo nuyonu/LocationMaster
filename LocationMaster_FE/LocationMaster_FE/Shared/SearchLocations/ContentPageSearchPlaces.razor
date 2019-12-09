@@ -1,0 +1,15 @@
+﻿<div id="content">
+    <div class="content-body-places">
+        @for (var i = 1; i < Sizer; i++)
+        {
+            <LocationCard/>
+        }
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Sizer { get; set; }
+
+}
