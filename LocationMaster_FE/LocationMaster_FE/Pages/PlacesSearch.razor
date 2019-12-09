@@ -1,11 +1,14 @@
 ﻿@using  LocationMaster_FE.Shared.SearchLocations
 @page "/search"
-<TopPage PageTitle="Counter"
-         WithSearchBar="true"></TopPage>
+    <div class="mybody">
+        <TopPage PageTitle="Counter"
+                 WithSearchBar="true"></TopPage>
 
-<MenuSearch />
-<ContentPageSearchPlaces Sizer=10 />
-
+        <div class="container-places">
+            <MenuSearch />
+            <ContentPageSearchPlaces Sizer="25" />
+        </div>
+    </div>
 
 @code {
 
