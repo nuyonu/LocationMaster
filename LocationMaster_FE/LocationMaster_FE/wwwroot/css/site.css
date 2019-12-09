@@ -7,6 +7,7 @@ body {
     font-family: "Roboto", sans-serif;
     background: white;
     height: 100%;
+    width: 100%;
 }
 
 p {
@@ -73,20 +74,4 @@ p {
 /*Cursors*/
 .cursor-pointer {
     cursor: pointer;
-}
-
-/*MyProfile Page*/
-.myprofile-container {
-    background-image: url("../images/main-images/main-image.png");
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-}
-
-.myprofile-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 200px;
-    border: 5px solid white;
-    filter: drop-shadow(5px 5px 6px rgba(0, 0, 0, 0.78));
 }
