@@ -6,14 +6,11 @@ body {
     margin: 0px;
     font-family: "Roboto", sans-serif;
     background: white;
+    height: 100%;
 }
 
 p {
     margin: 0px;
-}
-
-.pb-64px {
-    padding-bottom: 64px;
 }
 
 .main-container {
@@ -37,4 +34,59 @@ p {
     position: absolute;
     right: 0.75rem;
     top: 0.5rem;
+}
+
+/*Spacing*/
+.pb-64px {
+    padding-bottom: 64px;
+}
+
+.mt-100px {
+    margin-top: 100px;
+}
+
+/*Borders*/
+.border-bottom-3px {
+    border: none;
+    border-bottom: 2px solid!important;
+}
+
+/*Colors and others*/
+.c-325DFF {
+    color: #325DFF;
+}
+
+.bg-325DFF {
+    background: #325DFF;
+}
+
+/*Font-size*/
+.font-size-25px {
+    font-size: 25px;
+}
+
+/*Opacity*/
+.o-50 {
+    opacity: 0.50;
+}
+
+/*Cursors*/
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/*MyProfile Page*/
+.myprofile-container {
+    background-image: url("../images/main-images/main-image.png");
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.myprofile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+    border: 5px solid white;
+    filter: drop-shadow(5px 5px 6px rgba(0, 0, 0, 0.78));
 }
