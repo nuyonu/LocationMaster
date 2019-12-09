@@ -6,11 +6,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>LocationMaster_FE</title>
     <base href="/" />
+    <style>
+        .gooey {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 142px;
+            height: 40px;
+            margin: -20px 0 0 -71px;
+            background: #fff;
+            filter: contrast(20);
+        }
+
+            .gooey .dot {
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                top: 12px;
+                left: 15px;
+                filter: blur(4px);
+                background: #000;
+                border-radius: 50%;
+                transform: translateX(0);
+                animation: dot 2.8s infinite;
+            }
+
+            .gooey .dots {
+                transform: translateX(0);
+                margin-top: 12px;
+                margin-left: 31px;
+                animation: dots 2.8s infinite;
+            }
+
+                .gooey .dots span {
+                    display: block;
+                    float: left;
+                    width: 16px;
+                    height: 16px;
+                    margin-left: 16px;
+                    filter: blur(4px);
+                    background: #000;
+                    border-radius: 50%;
+                }
+
+        @-moz-keyframes dot {
+            50% {
+                transform: translateX(96px);
+            }
+        }
+
+        @-webkit-keyframes dot {
+            50% {
+                transform: translateX(96px);
+            }
+        }
+
+        @-o-keyframes dot {
+            50% {
+                transform: translateX(96px);
+            }
+        }
+
+        @keyframes dot {
+            50% {
+                transform: translateX(96px);
+            }
+        }
+
+        @-moz-keyframes dots {
+            50% {
+                transform: translateX(-31px);
+            }
+        }
+
+        @-webkit-keyframes dots {
+            50% {
+                transform: translateX(-31px);
+            }
+        }
+
+        @-o-keyframes dots {
+            50% {
+                transform: translateX(-31px);
+            }
+        }
+
+        @keyframes dots {
+            50% {
+                transform: translateX(-31px);
+            }
+        }
+    </style>
     <!--<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/searchPlace.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+          integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto|Montserrat&display=swap" rel="stylesheet">
     <link href="css/site.css" rel="stylesheet" />
     <link href="css/colors.css" rel="stylesheet" />
@@ -21,21 +114,30 @@
 </head>
 
 <body>
-    <app>Loading...</app>
-
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
+<app>
+    <div class="gooey">
+        <span class="dot"></span>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
-    <script src="_framework/blazor.webassembly.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+</app>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+<script src="_framework/blazor.webassembly.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 </body>
