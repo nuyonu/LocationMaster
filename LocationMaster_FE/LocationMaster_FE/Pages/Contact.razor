@@ -1,0 +1,66 @@
+﻿@page "/contact"
+
+<TopPage PageTitle="Contact" />
+
+<section>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Your message matters!</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-3">
+                <p class="mb-3">Don't hesitate to contact us with any requests you may have. We guarantee to get back to you as soon as possible! Just introduce the details in your right.</p>
+                <div>
+                    Company:  <a href="https://LocationMaster.org">LocationMaster</a>
+                </div>
+                <div>
+                    Address: <a href="#">Botoșani</a>
+                </div>
+                <div>
+                    Phone:  <a href="#">+40727272727</a>
+                </div>
+                <div>
+                    Website:  <a href="https://LocationMaster.org">LocationMaster.org</a>
+                </div>
+                <div>
+                    Program: <a href="#">Mon to Sat: 08:30 AM - 11.00 PM</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <form class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
+                    <div class="form-group label-floating">
+                        <label class="control-label" for="name">Name</label>
+                        <input class="form-control" id="name" type="text" name="name" required data-error="Please enter your name">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label" for="email">E-mail</label>
+                        <input class="form-control" id="email" type="email" name="email" required data-error="Please enter your Email">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Subject</label>
+                        <input class="form-control" id="msg_subject" type="text" name="subject" required data-error="Please enter your message subject">
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-group label-floating">
+                        <label for="message" class="control-label">Message</label>
+                        <textarea class="form-control" rows="3" id="message" name="message" required data-error="Write your message"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="form-submit sm-5">
+                        <button class="btn contact-submit-button" type="submit" id="form-submit"><i class="material-icons mdi mdi-message-outline"></i> Send Message</button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+
+}
