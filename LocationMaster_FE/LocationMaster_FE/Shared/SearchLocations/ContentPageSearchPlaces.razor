@@ -1,10 +1,12 @@
 ﻿<div id="content">
+    <SizeResult Size=25 Duration=5/>
     <div class="content-body-places">
         @for (var i = 1; i < Sizer; i++)
         {
             <LocationCard/>
         }
     </div>
+    <LocationMaster_FE.Shared.SearchLocations.SmallComponents.Pagination CurrentPage=4 MaxOffset=4 MaxPage=100/>
 </div>
 
 @code {
