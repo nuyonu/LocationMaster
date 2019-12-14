@@ -18,5 +18,10 @@ namespace LocationMaster_API.Domain.Entities
                 Path = path
             };
         }
+
+        public void SetNewPath(string path)
+        {
+            Path = path;
+        }
     }
 }

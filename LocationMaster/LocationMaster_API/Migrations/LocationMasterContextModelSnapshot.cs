@@ -3,6 +3,7 @@ using System;
 using LocationMaster_API.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace LocationMaster_API.Migrations
@@ -18,7 +19,7 @@ namespace LocationMaster_API.Migrations
                 .HasAnnotation("ProductVersion", "3.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("LocationMaster_API.Models.Attraction", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Attraction", b =>
                 {
                     b.Property<Guid>("AttractionId")
                         .ValueGeneratedOnAdd()
@@ -45,7 +46,7 @@ namespace LocationMaster_API.Migrations
                     b.ToTable("Attractions");
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.Category", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd()
@@ -59,7 +60,7 @@ namespace LocationMaster_API.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.Photo", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Photo", b =>
                 {
                     b.Property<Guid>("PhotoId")
                         .ValueGeneratedOnAdd()
@@ -76,9 +77,26 @@ namespace LocationMaster_API.Migrations
                     b.HasIndex("PlaceId");
 
                     b.ToTable("Photos");
+
+                    b.HasData(
+                        new
+                        {
+                            PhotoId = new Guid("d5d41dfc-871e-4d29-b168-ff2908c93571"),
+                            Path = "/StaticFiles/Images/ProfileImages/DefaultProfileImage.png"
+                        },
+                        new
+                        {
+                            PhotoId = new Guid("3fa29a95-2ad9-4e99-84d3-d9f4c7636439"),
+                            Path = "/StaticFiles/Images/ProfileImages/DefaultProfileImage.png"
+                        },
+                        new
+                        {
+                            PhotoId = new Guid("451658dd-1545-4f2e-aebf-571974db9555"),
+                            Path = "/StaticFiles/Images/ProfileImages/DefaultProfileImage.png"
+                        });
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.Place", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Place", b =>
                 {
                     b.Property<Guid>("PlaceId")
                         .ValueGeneratedOnAdd()
@@ -114,7 +132,7 @@ namespace LocationMaster_API.Migrations
                     b.ToTable("Places");
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.Review", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Review", b =>
                 {
                     b.Property<Guid>("ReviewId")
                         .ValueGeneratedOnAdd()
@@ -138,11 +156,14 @@ namespace LocationMaster_API.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.User", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string[]>("AllowedRoles")
+                        .HasColumnType("text[]");
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp without time zone");
@@ -170,51 +191,86 @@ namespace LocationMaster_API.Migrations
                     b.HasIndex("ProfileImagePhotoId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("5d85c225-5912-4709-ade8-cfbbc5a479a2"),
+                            AllowedRoles = new[] { "admin" },
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@gmail.com",
+                            FirstName = "Comanel",
+                            LastName = "Gigica",
+                            Password = "$MYHASH$V1$10000$e52vieEXfPkKwMBizpwQXo71iQIF7VgXI/mLRpaQ5VlzQ5kHuQsrMhez3ECdUt1d80ZilpqAI/QOXwsxDnNBYn5bDzhsCpxtLOc9961jq0A=",
+                            Username = "admin"
+                        },
+                        new
+                        {
+                            UserId = new Guid("c0ba211b-2b89-4c22-b80f-0b4361ba4904"),
+                            AllowedRoles = new[] { "moderator" },
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "moderator@gmail.com",
+                            FirstName = "Comanel",
+                            LastName = "Jhony",
+                            Password = "$MYHASH$V1$10000$wLxJv1eENPiMd7rHyy+dMzKFrAsTPHurCKyJ87pHjSfLpVjneYZqmg+aWigrU0LV0Ks8qqw/HNs/KHLlCnEUqOdZcvTYXluGoSnpW/QpEN0=",
+                            Username = "moderator"
+                        },
+                        new
+                        {
+                            UserId = new Guid("7cdc26f8-e5bf-429f-9a7f-5d6fb05541dd"),
+                            AllowedRoles = new[] { "user" },
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "user@gmail.com",
+                            FirstName = "Comanel",
+                            LastName = "Florinel",
+                            Password = "$MYHASH$V1$10000$cErC+Z2n/Eo9kBzQTUXQNuOuatAArux4L+ehpb7FgxNMV8rgizftq8bsViUUXLNsYYukFOAS/hWDvFffSh7o/GBTJVt67a6F9KRHajeobtw=",
+                            Username = "user"
+                        });
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.Attraction", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Attraction", b =>
                 {
-                    b.HasOne("LocationMaster_API.Models.Photo", "Photo")
+                    b.HasOne("LocationMaster_API.Domain.Entities.Photo", "Photo")
                         .WithMany()
                         .HasForeignKey("PhotoId");
 
-                    b.HasOne("LocationMaster_API.Models.Place", null)
+                    b.HasOne("LocationMaster_API.Domain.Entities.Place", null)
                         .WithMany("Attractions")
                         .HasForeignKey("PlaceId");
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.Photo", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Photo", b =>
                 {
-                    b.HasOne("LocationMaster_API.Models.Place", null)
+                    b.HasOne("LocationMaster_API.Domain.Entities.Place", null)
                         .WithMany("Photos")
                         .HasForeignKey("PlaceId");
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.Place", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Place", b =>
                 {
-                    b.HasOne("LocationMaster_API.Models.Category", "Category")
+                    b.HasOne("LocationMaster_API.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("LocationMaster_API.Models.User", "Owner")
+                    b.HasOne("LocationMaster_API.Domain.Entities.User", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerUserId");
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.Review", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.Review", b =>
                 {
-                    b.HasOne("LocationMaster_API.Models.Place", null)
+                    b.HasOne("LocationMaster_API.Domain.Entities.Place", null)
                         .WithMany("Reviews")
                         .HasForeignKey("PlaceId");
 
-                    b.HasOne("LocationMaster_API.Models.User", "User")
+                    b.HasOne("LocationMaster_API.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("LocationMaster_API.Models.User", b =>
+            modelBuilder.Entity("LocationMaster_API.Domain.Entities.User", b =>
                 {
-                    b.HasOne("LocationMaster_API.Models.Photo", "ProfileImage")
+                    b.HasOne("LocationMaster_API.Domain.Entities.Photo", "ProfileImage")
                         .WithMany()
                         .HasForeignKey("ProfileImagePhotoId");
                 });
