@@ -1,0 +1,70 @@
+﻿@font-face {
+    font-family: 'Acumin Pro';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Acumin Pro'), url('./fonts/AcuminPro/Acumin-RPro.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Acumin Pro Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Acumin Pro Italic'), url('./fonts/AcuminPro/Acumin-ItPro.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Acumin Pro Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Acumin Pro Bold'), url('./fonts/AcuminPro/Acumin-BdPro.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Acumin Pro Bold Italic';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Acumin Pro Bold Italic'), url('./fonts/AcuminPro/Acumin-BdItPro.woff') format('woff');
+}
+
+.location-card {
+    width: 300px;
+    height: 200px;
+    margin: 12px;
+    font-family: 'Acumin Pro';
+    border-radius: 12px;
+}
+
+.location-card .card-body {
+    padding: 0;
+}
+
+.location-card p {
+    margin: 0;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 1.0rem;
+}
+
+.location-card h5 {
+    margin: 0;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 1.4rem;
+}
+
+.location-card img {
+    border-radius: 12px;
+    height: 100%;
+}
+
+.location-card .view-location {
+    background-color: rgba(0, 0, 0, 0.75);
+    font-family: 'Montserrat', sans-serif;
+    padding: 4px 10px;
+}
+
+.ellipsis-overflow-2 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}

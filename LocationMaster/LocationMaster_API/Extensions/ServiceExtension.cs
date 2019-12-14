@@ -19,7 +19,7 @@ namespace LocationMaster_API.Extensions
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                   builder => builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
@@ -40,6 +40,7 @@ namespace LocationMaster_API.Extensions
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPlaceService, PlacesService>();
+            services.AddScoped<IImageService, ImageService>();
         }
 
         public static void ConfigureApiVersioning(this IServiceCollection services)

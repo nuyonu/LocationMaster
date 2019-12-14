@@ -36,6 +36,17 @@ namespace LocationMaster_API.Controllers
             return resources;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserByIdAsync(Guid id)
+        {
+            var result = await _userService.FindByIdIncludePhotoAsync(id);
+            if (!result.Success)
+                return NotFound(result.Message);
+
+            var resource = _mapper.Map<User, UserResource>(result.User);
+            return Ok(resource);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] SaveUserResource resource)
         {
@@ -43,7 +54,7 @@ namespace LocationMaster_API.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
 
             var user = LocationMaster_API.Domain.Entities.User.Create(resource.Username,
-                            SecurePasswordHasherHelperService.Hash(resource.Password), resource.Email, resource.LastName, resource.FirstName);
+                            SecurePasswordHasherHelperService.Hash(resource.Password), resource.Email, resource.LastName, resource.FirstName, new[] { "user" });
 
             var result = await _userService.SaveAsync(user);
 

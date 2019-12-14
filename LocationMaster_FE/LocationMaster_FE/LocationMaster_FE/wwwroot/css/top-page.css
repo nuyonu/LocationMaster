@@ -1,0 +1,19 @@
+﻿.top-page {
+    background-image: url("../images/main-images/main-image.png");
+    background-size: cover;
+    background-position: 50% 40%;
+}
+
+.top-page-opacity {
+    background: rgba(0, 0, 253, 0.22);
+}
+
+.page-title {
+    font-family: 'Poppins', sans-serif;
+}
+
+@media screen and (max-width: 425px) {
+    .page-title {
+        margin-top: 120px;
+    }
+}

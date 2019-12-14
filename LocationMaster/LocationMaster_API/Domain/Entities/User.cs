@@ -17,8 +17,9 @@ namespace LocationMaster_API.Domain.Entities
         public string LastName { get; private set; }
         public string FirstName { get; private set; }
         public DateTime BirthDate { get; private set; }
+        public string[] AllowedRoles { get; set; }
 
-        public static User Create(string username, string password, string email, string lastName, string firstName)
+        public static User Create(string username, string password, string email, string lastName, string firstName, string[] allowedRoles)
         {
             var user = new User
             {
@@ -27,7 +28,8 @@ namespace LocationMaster_API.Domain.Entities
                 Password = password,
                 Email = email,
                 LastName = lastName,
-                FirstName = firstName
+                FirstName = firstName,
+                AllowedRoles = allowedRoles
             };
             return user;
         }

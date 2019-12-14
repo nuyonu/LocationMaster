@@ -1,0 +1,35 @@
+﻿
+<div class="custom_navbar shadow p-2 mb-5 bg-white rounded">
+    <div class="custom_navbar__links">
+        <NavLink class="nav-item" href="" Match="NavLinkMatch.All"><i class="fa fa-home"></i><span>Home</span></NavLink>
+        <div class="dropdown show">
+            <a class="dropdown-toggle nav-item" href="#" role="button" id="dropDownMenuPlaces" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-map-marker"></i><span>Places</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropDownMenuPlaces">
+                <NavLink class="dropdown-item" href="search">Find Places</NavLink>
+                <NavLink class="dropdown-item" href="explore">Explore</NavLink>
+            </div>
+        </div>
+        <NavLink class="nav-item" href="contact"><i class="fa fa-phone"></i><span>Contact us</span></NavLink>
+    </div>
+    <div class="custom_navbar__logo-image">
+        <div class="nav-item">
+            <img class="logo-image" src="images/main-images/location-master-logo.png">
+        </div>
+    </div>
+    <div class="custom_navbar__right_container">
+        <AuthorizeView>
+            <Authorized>
+                <NavBarUserLoggedIn></NavBarUserLoggedIn>
+            </Authorized>
+            <NotAuthorized>
+                <NavBarUserNotLoggedIn></NavBarUserNotLoggedIn>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+</div>
+
+@code {
+}
