@@ -1,0 +1,65 @@
+﻿@page "/login"
+@inject HttpClient http
+@inject ILoginService  loginService
+@inject NavigationManager navigationManager
+
+@using LocationMaster_FE.Auth
+@using LocationMaster_FE.Models
+
+<TopPage PageTitle="Log In"></TopPage>
+<div class="d-flex justify-content-center">
+    <EditForm class="w-50" Model="userInfo" OnValidSubmit="LoginUser">
+        <DataAnnotationsValidator />
+        <div class="text-danger text-center">
+            @ErrorMessage
+        </div>
+        <div class="form-group">
+            <label>Username:</label>
+            <div>
+                <InputText class="form-control" @bind-Value="@userInfo.Username" @onfocus="RemoveErrors"/>
+                <ValidationMessage class="text-danger" For="@(() => userInfo.Username)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Password:</label>
+            <div>
+                <InputPassword class="form-control" @bind-Value="@userInfo.Password" @onfocus="RemoveErrors"/>
+                <ValidationMessage class="text-danger" For="@(() => userInfo.Password)" />
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </div>
+
+    </EditForm>
+</div>
+
+@code {
+    private UserInfo userInfo = new UserInfo();
+
+    private string ErrorMessage;
+
+    async Task LoginUser()
+    {
+        try
+        {
+            var result = await http.PostJsonAsync<UserToken>("https://localhost:5001/api/v1.0/Authentication/Login", userInfo);
+            Console.WriteLine(result.Token);
+            await loginService.Login(result.Token);
+            navigationManager.NavigateTo("");
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            ErrorMessage = "Username or password invalid";
+        }
+
+    }
+
+    public void RemoveErrors()
+    {
+        ErrorMessage = null;
+    }
+}
