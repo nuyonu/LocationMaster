@@ -1,0 +1,46 @@
+﻿@using System.Text.Json
+@using LocationMaster_FE.Models
+@using LocationMaster_FE.Models.Responses
+@using LocationMaster_FE.Services
+@inject UserService Service
+<div class="owner-content">
+    <div class="image-owner">
+        <img src="images/index-page/first-image.webp" id="photo-user"/>
+    </div>
+    <div class="owner-text">
+        <div class="owner-text-top">
+            <div class="owner-text-left">
+                <p>Owner</p>
+                <h4>@_user.FirstName @_user.LastName</h4>
+            </div>
+            <div class="owner-text-right">
+                <button class="button-ask">Ask a question</button>
+            </div>
+
+        </div>
+        <div class="owner-text-bottom">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non
+
+
+                consectetur purus. Morbi tempor ultricies quam. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur ac tristique augue. Fusce rutrum, arcu at faucibus gravida, purus nunc aliquet tellus, vel scelerisque felis ligula sed neque. Mauris ornare turpis quis urna feugiat placerat. Etiam maximus enim et turpis egestas convallis. Sed sodales tellus purus, eu volutpat tortor sagittis a. Fusce ac vehicula tortor. In ullamcorper tristique molestie. Duis volutpat convallis urna. Mauris interdum nec nisl sit amet lacinia. Pellentesque gravida ipsum nec ligula dignissim, varius laoreet risus ullamcorper.
+
+            </p>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public PlaceInfoResource Data { get; set; }
+
+    private UserResponse _user = new UserResponse();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Console.WriteLine(JsonSerializer.Serialize(Data));
+//        _user = await Service.GetUserById(Data.OwnerId);
+    }
+
+}    

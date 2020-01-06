@@ -1,0 +1,40 @@
+﻿@using LocationMaster_FE.Models.Responses
+<div class="container-place-atractions">
+    <div class="container-body-attraction-top">
+        <h2>Gallery</h2>
+    </div>
+    <div class="container-body-photos">
+       
+            <GalleryPlaceColumn Urls=_urList[0]></GalleryPlaceColumn>
+            <GalleryPlaceColumn Urls=_urList[1]></GalleryPlaceColumn>
+            <GalleryPlaceColumn Urls=_urList[2]></GalleryPlaceColumn>
+    </div>
+    <div class="container-body-attraction-top gallery-none">
+        <button class="button-ask" @onclick="LoadMorePhotos">More photos</button>
+
+    </div>
+</div>
+@code {
+    private List<List<string>> _urList;
+    private int collumn = 0;
+    [Parameter]
+    public PlaceInfoResource Data { get; set; }
+
+    public void LoadMorePhotos()
+    {
+        if (collumn == 3)
+            collumn = 0;
+        _urList[0].Add("images/index-page/first-image.webp");
+        _urList[1].Add("images/index-page/first-image.webp");
+        _urList[2].Add("images/index-page/first-image.webp");
+        collumn++;
+    }
+    protected override void OnInitialized()
+    {
+        _urList=new List<List<string>>(){new List<string>(),new List<string>(),new List<string>()};
+        _urList[0].Add("images/index-page/first-image.webp");
+        _urList[1].Add("images/index-page/first-image.webp");
+        _urList[2].Add("images/index-page/first-image.webp");
+    }
+
+}

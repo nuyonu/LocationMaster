@@ -1,0 +1,62 @@
+﻿@using LocationMaster_FE.ContainerState
+@inject PagesPlacesStorage Storage
+<div class="pagination-container">
+    <div class="pagination">
+        @if (CurrentPage > 1)
+        {
+            <div class="page-box">
+                <a class="pagination-value" @onclick="@(() => OnClick.InvokeAsync(CurrentPage-1))">&lt;</a>
+            </div>
+        }
+        @for (var pageIndex = MaxValue(CurrentPage - MaxOffset); pageIndex < CurrentPage; pageIndex++)
+        {
+            var temp=pageIndex;
+            <div class="page-box">
+                <a class="pagination-value" @onclick="@(() => OnClick.InvokeAsync(temp))" >@pageIndex</a>
+            </div>
+        }
+        <div class="page-box">
+            <a class="pagination-value active">@(CurrentPage)</a>
+        </div>
+        @for (var pageIndex = CurrentPage + 1; pageIndex <= MinPage(CurrentPage + MaxOffset); pageIndex++)
+        {                
+            var temp=pageIndex;
+            <div class="page-box">
+                <a class="pagination-value"  @onclick="@(() => OnClick.InvokeAsync(temp))">@pageIndex</a>
+            </div>
+        }
+        @if (CurrentPage < MaxPage)
+        {
+            <div class="page-box">
+                <a class="pagination-value" @onclick="@(() => OnClick.InvokeAsync(CurrentPage+1))">&gt;</a>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback<int> OnClick { get; set; }
+
+    [Parameter]
+    public int MaxOffset { get; set; }
+
+    [Parameter]
+    public int MaxPage { get; set; }
+
+    [Parameter]
+    public int CurrentPage { get; set; }
+
+    public int MaxValue(int value)
+    {
+        return value > 0 ? value : 1;
+    }
+
+    public int MinPage(int value)
+    {
+        if (value > Storage.PageCount)
+            return Storage.PageCount;
+        else
+            return value;
+    }
+
+}

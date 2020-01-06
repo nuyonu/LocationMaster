@@ -1,0 +1,33 @@
+﻿<div class="card img-fluid shadow location-card">
+    <img class="card-img" src="images/locations/miami.jpg" alt="test">
+    <div class="card-img-overlay d-flex flex-column justify-content-between">
+        <div>
+            <p class="card-text fa fa-heart text-danger"></p>
+            <p class="card-text fa fa-heart text-danger"></p>
+            <p class="card-text fa fa-heart text-danger"></p>
+            <p class="card-text fa fa-heart text-white"></p>
+            <p class="card-text fa fa-heart text-white"></p>
+        </div>
+        <div>
+            <h5 class="card-title text-white font-weight-bold ellipsis-overflow-2">@Name</h5>
+            <p class="card-text text-white ellipsis-overflow-2">City, Country</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button class="btn-sm btn-dark rounded-pill view-location" type="button">View location</button>
+            <a href="place" class="card-link fa fa-arrow-right text-white align-self-center"></a>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public string Category { get; set; }
+
+    [Parameter]
+    public Guid Id { get; set; }
+
+}

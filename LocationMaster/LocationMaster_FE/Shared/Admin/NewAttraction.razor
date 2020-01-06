@@ -1,0 +1,98 @@
+﻿@using System.IO
+@using System.Text.Json
+@using BlazorInputFile
+@using LocationMaster_FE.Pages
+@using LocationMaster_FE.Models.Responses
+@using LocationMaster_FE.Services
+@using Models
+@using LocationMaster_FE.Services.IServices
+@inject IGeolocationService GeolocationService
+@inject PlaceService PlaceService
+@inject IMatToaster Toaster
+@inject IAttractionsService AttractionsService
+
+
+<MatButton OnClick="@OpenDialogNewPlace" Raised="true">Add new attraction</MatButton>
+
+<MatDialog @bind-IsOpen="@dialogIsOpenNewPlace">
+    <MatDialogTitle>Create a new attraction </MatDialogTitle>
+    <MatDialogContent>
+        <MatTextField @bind-Value="@_saveAttraction.Name" Label="Name" Required="true" HelperText="A attraction need to have a name." HelperTextValidation="true"></MatTextField>
+        <MatTextField @bind-Value="@_saveAttraction.Description" Label="Description" HelperText="A attraction need to have a description." HelperTextValidation="true" TextArea="true" Required="true"></MatTextField>
+        <InputFile OnChange="HandleSelection"/>
+    </MatDialogContent>
+
+    <MatDialogActions>
+        <MatButton OnClick="@OnCancelButton">Cancel</MatButton>
+        <MatButton OnClick="@OnClickSavePlace">Save</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code
+{
+
+    async Task HandleSelection(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            if (file.Type != "image/png")
+                Toaster.Add("Invalid photo format", MatToastType.Warning, "Photo attraction");
+            else
+            {
+                var ms = new MemoryStream();
+                await file.Data.CopyToAsync(ms);
+                _saveAttraction.Photo = ms.ToArray();
+                StateHasChanged();
+            }
+        }
+    }
+
+    bool valid()
+    {
+        if (_saveAttraction.Name == null || _saveAttraction.Description == null)
+            return false;
+        return _saveAttraction.Name != "" && _saveAttraction.Description.Length > 39;
+    }
+
+    void OpenDialogNewPlace()
+    {
+        if (!String.IsNullOrEmpty(Id))
+            dialogIsOpenNewPlace = true;
+    }
+
+    void OnCancelButton()
+    {
+        dialogIsOpenNewPlace = false;
+        _saveAttraction.Description = "";
+        _saveAttraction.Name = "";
+    }
+
+    async void OnClickSavePlace()
+    {
+        if (_saveAttraction.Photo.Length == 0)
+            Toaster.Add("You must a photo for attraction", MatToastType.Danger, "Photo for attraction", "");
+        if (!valid())
+            Toaster.Add("Please add info for place", MatToastType.Info);
+        else
+        {
+            dialogIsOpenNewPlace = false;
+            if (AttractionsService.Save(Guid.Parse(Id), _saveAttraction))
+            {
+//                Attractions.UpdateList(_saveAttraction);
+                Toaster.Add("Attraction was saved successfully", MatToastType.Success, "Create Attraction", "");
+            }
+            else
+                Toaster.Add("Save attraction failed", MatToastType.Danger, "Fail Create Attraction", "");
+        }
+    }
+
+    [Parameter]
+    public string Id { get; set; }
+
+    [CascadingParameter]
+    public AdminAttractions Attractions { get; set; }
+
+    private bool dialogIsOpenNewPlace = false;
+    private SaveAttractionResource _saveAttraction = new SaveAttractionResource();
+}

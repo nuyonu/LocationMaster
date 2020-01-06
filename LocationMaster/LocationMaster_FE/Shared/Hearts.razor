@@ -1,0 +1,14 @@
+﻿<div>
+    @for (int i = 1; i <= NoHearts; i++)
+    {
+        <i class="fas fa-heart"></i>
+    }
+</div>
+
+@code
+{
+
+    [Parameter]
+    public int NoHearts { get; set; }
+
+}
