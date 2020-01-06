@@ -1,7 +1,0 @@
-organization=nuyonu-github
-projectKey=nuyonu_LocationMaster
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.3038
-dashboardUrl=https://sonarcloud.io/dashboard?id=nuyonu_LocationMaster
-ceTaskId=AW7WJXTwTQAlog0SnGB2
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AW7WJXTwTQAlog0SnGB2
