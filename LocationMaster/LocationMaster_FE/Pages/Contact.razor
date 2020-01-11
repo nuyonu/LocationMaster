@@ -1,4 +1,8 @@
 ﻿@page "/contact"
+@using LocationMaster_FE.Models
+@using System.Security.Claims
+@inject IMatToaster Toaster
+@inject HttpClient http
 
 <TopPage PageTitle="Contact" />
 
@@ -32,12 +36,12 @@
                 <form class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
                     <div class="form-group label-floating">
                         <label class="control-label" for="name">Name</label>
-                        <input class="form-control" id="name" type="text" name="name" required data-error="Please enter your name">
+                        <input class="form-control" id="name" type="text" @bind-value="fullName" name="name" required data-error="Please enter your name">
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group label-floating">
                         <label class="control-label" for="email">E-mail</label>
-                        <input class="form-control" id="email" type="email" name="email" required data-error="Please enter your Email">
+                        <input class="form-control" id="email" type="email" name="email" @bind-value="user.Email" required data-error="Please enter your Email">
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group label-floating">
@@ -51,7 +55,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-submit sm-5">
-                        <button class="btn contact-submit-button" type="submit" id="form-submit"><i class="material-icons mdi mdi-message-outline"></i> Send Message</button>
+                        <button class="btn contact-submit-button" type="button" @onclick="ContactUs" id="form-submit"><i class="material-icons mdi mdi-message-outline"></i> Send Message</button>
                         <div id="msgSubmit" class="h3 text-center hidden"></div>
                         <div class="clearfix"></div>
                     </div>
@@ -62,5 +66,28 @@
 </section>
 
 @code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authState { get; set; }
 
+    private ClaimsPrincipal principal;
+
+    private string fullName;
+
+    private UserResponse user = new UserResponse();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (authState != null)
+        {
+            principal = (await authState).User;
+        }
+        var userId = principal.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value;
+        user = await http.GetJsonAsync<UserResponse>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/users/" + userId);
+        fullName = user.LastName + " " + user.FirstName;
+    }
+
+    public void ContactUs()
+    {
+        Toaster.Add("You can't contact us right now. Coming soon", MatToastType.Danger, "Failed");
+    }
 }

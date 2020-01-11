@@ -54,7 +54,7 @@ namespace LocationMaster_API.Controllers
                 return BadRequest(ModelState.GetErrorMessages());
 
             var user = LocationMaster_API.Domain.Entities.User.Create(resource.Username,
-                            SecurePasswordHasherHelperService.Hash(resource.Password), resource.Email, resource.LastName, resource.FirstName, new[] { "user" });
+                            SecurePasswordHasherHelperService.Hash(resource.Password), resource.Email, resource.LastName, resource.FirstName, resource.BirthDate, new[] { "user" });
 
             var result = await _userService.SaveAsync(user);
 
@@ -66,13 +66,12 @@ namespace LocationMaster_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, [FromBody] SaveUserResource resource)
+        public async Task<IActionResult> PutAsync(Guid id, [FromBody] PutUserResource resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
 
-            var user = _mapper.Map<SaveUserResource, User>(resource);
-            var result = await _userService.UpdateAsync(id, user);
+            var result = await _userService.UpdateAsync(id, resource);
 
             if (!result.Success)
                 return BadRequest(result.Message);

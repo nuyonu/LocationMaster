@@ -80,10 +80,6 @@ namespace LocationMaster_FE.Auth
                 else
                 {
                     claims.Add(new Claim(ClaimTypes.Role, roles.ToString()));
-                    foreach(var c in claims)
-                    {
-                        Console.WriteLine(c);
-                    }
                 }
 
                 keyValuePairs.Remove(ClaimTypes.Role);

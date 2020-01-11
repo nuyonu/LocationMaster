@@ -72,14 +72,17 @@ namespace LocationMaster_API.Services
             }
         }
 
-        public async Task<UserResponse> UpdateAsync(Guid id, User user)
+        public async Task<UserResponse> UpdateAsync(Guid id, PutUserResource user)
         {
             var existingUser = await _unitOfWork.Users.FindByIdAsync(id);
 
             if (existingUser == null)
                 return new UserResponse("User not found.");
 
-            //UPDATE LOGIC HERE
+            existingUser.setNewLastName(user.LastName);
+            existingUser.setNewFirstName(user.FirstName);
+            existingUser.setNewEmail(user.Email);
+            existingUser.setNewBirthDate(user.BirthDate);
 
             try
             {
