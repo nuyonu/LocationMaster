@@ -12,7 +12,7 @@ namespace LocationMaster_API.Domain.Services
     {
         Task<IEnumerable<User>> ListAsync();
         Task<UserResponse> SaveAsync(User user);
-        Task<UserResponse> UpdateAsync(Guid id, User user);
+        Task<UserResponse> UpdateAsync(Guid id, PutUserResource user);
         Task<UserResponse> DeleteAsync(Guid id);
         Task<bool> CredentialsAreValidAsync(string username, string password);
         Task<UserToken> CreateTokenAsync(string username, IConfiguration _configuration);

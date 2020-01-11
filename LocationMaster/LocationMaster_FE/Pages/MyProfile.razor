@@ -1,18 +1,24 @@
 ﻿@page "/myprofile"
+
 @using LocationMaster_FE.Models
 @using System.Security.Claims
 @using LocationMaster_FE.Services.IServices
 @using System.IO
 @using BlazorInputFile
+@using LocationMaster_FE.ContainerState
+
+@inject ProfileImageState profileImageState
 @inject HttpClient http
 @inject NavigationManager navigationManager
 @inject IImageService  imageService
+@inject IMatToaster Toaster
 
 @attribute [Authorize]
 <div class="myprofile-container">
     <div class="top-page-opacity d-flex flex-column h-100">
         <img class="myprofile-image mt-100px mx-auto" src="@imgSrc" />
-        <form class="d-flex flex-row flex-wrap justify-content-around mt-5">
+        <EditForm id="update-user-info" class="d-flex flex-row flex-wrap justify-content-around mt-5" Model="putUserInfo" OnValidSubmit="ChangeProfileInfo">
+            <DataAnnotationsValidator />
             <div class="bg-white text-secondary px-5 py-4 font-size-25px m-2">
                 <h1 class="c-325DFF o-50">BASIC INFO</h1>
                 <div class="form-group row">
@@ -21,34 +27,38 @@
                 </div>
                 <div class="form-group row">
                     <label class="m-0" for="last-name">LAST NAME:</label>
-                    <input class="bg-white border-bottom-3px text-secondary ml-3" id="last-name" type="text" @bind-value="user.LastName" />
+                    <InputText class="bg-white border-bottom-3px text-secondary ml-3" id="last-name" @bind-Value="putUserInfo.LastName" />
                 </div>
+                <ValidationMessage For="@(() => putUserInfo.LastName)" />
                 <div class="form-group row">
                     <label class="m-0" for="first-name">FIRST NAME:</label>
-                    <input class="bg-white border-bottom-3px text-secondary ml-3" id="first-name" type="text" @bind-value="user.FirstName" />
+                    <InputText class="bg-white border-bottom-3px text-secondary ml-3" id="first-name" @bind-Value="putUserInfo.FirstName" />
                 </div>
+                <ValidationMessage For="@(() => putUserInfo.FirstName)" />
                 <div class="form-group row">
                     <label class="m-0" for="birth-date">DATE OF BIRTH:</label>
-                    <input type="date" class="bg-white border-bottom-3px text-secondary ml-3" id="birth-date" @bind-value="user.BirthDate" />
+                    <InputDate class="bg-white border-bottom-3px text-secondary ml-3" id="birth-date" @bind-Value="putUserInfo.BirthDate" />
                 </div>
+                <ValidationMessage For="@(() => putUserInfo.BirthDate)" />
             </div>
             <div class="bg-325DFF text-white px-5 py-4 font-size-25px">
                 <h1 class="text-white">CONTACT INFO</h1>
                 <div class="form-group row">
                     <label class="m-0" for="email">EMAIL:</label>
-                    <input class="bg-325DFF border-bottom-3px text-white ml-3" id="email" type="text" @bind-value="user.Email" />
+                    <InputText class="bg-325DFF border-bottom-3px text-white ml-3" id="email" @bind-Value="putUserInfo.Email" />
                 </div>
+                <ValidationMessage For="@(() => putUserInfo.Email)" />
                 <div class="form-group row">
                     <label class="m-0" for="phone-number">PHONE NUMBER:</label>
                     <input class="bg-325DFF border-bottom-3px text-white ml-3" id="phone-number" type="text" value="Coming soon" disabled />
                 </div>
             </div>
-        </form>
+        </EditForm>
         <div class="w-100 my-5">
             <div class="d-flex flex-row flex-wrap justify-content-center mr-4">
-                <button class="btn bg-325DFF btn-lg text-white rounded-pill mx-2">VIEW HISTORY</button>
+                @*<button class="btn bg-325DFF btn-lg text-white rounded-pill mx-2">VIEW HISTORY</button>*@
                 <label for="profile-image-upload" class="btn bg-325DFF btn-lg text-white rounded-pill mx-2 mb-0 cursor-pointer">CHANGE PHOTO</label>
-                <button class="btn bg-325DFF btn-lg text-white rounded-pill mx-2">UPDATE</button>
+                <button class="btn bg-325DFF btn-lg text-white rounded-pill mx-2" type="submit" form="update-user-info">UPDATE</button>
             </div>
         </div>
         <InputFile id="profile-image-upload" OnChange="HandleSelection" hidden />
@@ -63,6 +73,8 @@
     private ClaimsPrincipal principal;
 
     private string userId;
+
+    private PutUserInfo putUserInfo = new PutUserInfo();
 
     private string imgSrc;
 
@@ -90,6 +102,8 @@
                 }
                 catch (Exception ex)
                 {
+                    Toaster.Add("You have successfully updated your profile image", MatToastType.Success, "Success");
+                    ex.ToString();
                     await Initialize();
                 }
             }
@@ -98,124 +112,40 @@
 
     private async Task Initialize()
     {
+
         if (authState != null)
         {
             principal = (await authState).User;
         }
         userId = principal.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value;
         user = await http.GetJsonAsync<UserResponse>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/users/" + userId);
-        var imageId = user.ProfileImage.PhotoId;
+        mapToPutUserInfo(user, ref putUserInfo);
 
+        var imageId = user.ProfileImage.PhotoId;
         imgSrc = await imageService.GetImageSrc(imageId);
+        profileImageState.ImgSrc = await imageService.GetImageSrc(imageId);
+        profileImageState.NotifyStateChanged();
+    }
+
+    private async Task ChangeProfileInfo()
+    {
+        try
+        {
+            var response = await http.PutJsonAsync<UserResponse>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/users/" + user.UserId, putUserInfo);
+            mapToPutUserInfo(response, ref putUserInfo);
+            Toaster.Add("You have successfully updated your information", MatToastType.Success, "Success");
+        }
+        catch (Exception ex)
+        {
+            ex.ToString();
+        }
+    }
+
+    private void mapToPutUserInfo(UserResponse source, ref PutUserInfo destination)
+    {
+        destination.FirstName = source.FirstName;
+        destination.LastName = source.LastName;
+        destination.Email = source.Email;
+        destination.BirthDate = source.BirthDate;
     }
 }
-@*@page "/myprofile"
-    @using LocationMaster_FE.Models
-    @using System.Security.Claims
-    @using LocationMaster_FE.Services.IServices
-    @using System.IO
-    @using System.Text
-    @using BlazorInputFile
-    @inject HttpClient http
-    @inject NavigationManager navigationManager
-    @inject IImageService  imageService
-
-    @attribute [Authorize]
-    <div class="myprofile-container">
-        <div class="top-page-opacity d-flex flex-column h-100">
-            <img class="myprofile-image mt-100px mx-auto" src="@imgSrc" />
-            <form class="d-flex flex-row flex-wrap justify-content-around mt-5">
-                <div class="bg-white text-secondary px-5 py-4 font-size-25px m-2">
-                    <h1 class="c-325DFF o-50">BASIC INFO</h1>
-                    <div class="form-group row">
-                        <label class="m-0" for="username">USERNAME:</label>
-                        <input class="bg-white border-0 text-secondary ml-3" id="username" @bind-value="user.Username" type="text" disabled />
-                    </div>
-                    <div class="form-group row">
-                        <label class="m-0" for="last-name">LAST NAME:</label>
-                        <input class="bg-white border-bottom-3px text-secondary ml-3" id="last-name" type="text" @bind-value="user.LastName" />
-                    </div>
-                    <div class="form-group row">
-                        <label class="m-0" for="first-name">FIRST NAME:</label>
-                        <input class="bg-white border-bottom-3px text-secondary ml-3" id="first-name" type="text" @bind-value="user.FirstName" />
-                    </div>
-                    <div class="form-group row">
-                        <label class="m-0" for="birth-date">DATE OF BIRTH:</label>
-                        <input type="date" class="bg-white border-bottom-3px text-secondary ml-3" id="birth-date" @bind-value="user.BirthDate" />
-                    </div>
-                </div>
-                <div class="bg-325DFF text-white px-5 py-4 font-size-25px">
-                    <h1 class="text-white">CONTACT INFO</h1>
-                    <div class="form-group row">
-                        <label class="m-0" for="email">EMAIL:</label>
-                        <input class="bg-325DFF border-bottom-3px text-white ml-3" id="email" type="text" @bind-value="user.Email" />
-                    </div>
-                    <div class="form-group row">
-                        <label class="m-0" for="phone-number">PHONE NUMBER:</label>
-                        <input class="bg-325DFF border-bottom-3px text-white ml-3" id="phone-number" type="text" value="Coming soon" />
-                    </div>
-                </div>
-            </form>
-            <div class="w-100 my-5">
-                <div class="d-flex flex-row flex-wrap justify-content-center mr-4">
-                    <button class="btn bg-325DFF btn-lg text-white rounded-pill mx-2">VIEW HISTORY</button>
-                    <label for="profile-image-upload" class="btn bg-325DFF btn-lg text-white rounded-pill mx-2 mb-0 cursor-pointer">CHANGE PHOTO</label>
-                    <button class="btn bg-325DFF btn-lg text-white rounded-pill mx-2">UPDATE</button>
-                </div>
-            </div>
-            <InputFile id="profile-image-upload" OnChange="HandleSelection" hidden/>
-        </div>
-    </div>
-
-
-    @code {
-        [CascadingParameter]
-        private Task<AuthenticationState> authState { get; set; }
-
-        private ClaimsPrincipal principal;
-
-        private string userId;
-
-        private string imgSrc;
-
-        private UserResponse user = new UserResponse();
-
-        protected override async Task OnInitializedAsync()
-        {
-            if (authState != null)
-            {
-                principal = (await authState).User;
-            }
-            userId = principal.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value;
-            user = await http.GetJsonAsync<UserResponse>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/users/" + userId);
-            var imageId = user.ProfileImage.PhotoId;
-
-            imgSrc = await imageService.GetImageSrc(imageId);
-        }
-
-        private async Task HandleSelection(IFileListEntry[] files)
-        {
-            var file = files.FirstOrDefault();
-
-            Console.WriteLine(file.Name);
-
-            if (file != null)
-            {
-                using (var ms = new MemoryStream())
-                {
-                    await file.Data.CopyToAsync(ms);
-                    byte[] fileBytes = ms.ToArray();
-
-                    string imageString = Convert.ToBase64String(fileBytes);
-                    try
-                    {
-                        var response = await http.PutJsonAsync<ImagePut>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/images/" + user.ProfileImage.PhotoId, new ImagePut { ImageStringBytes = imageString });
-                    }
-                    catch(Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
-                    }
-                }
-            }
-        }
-    }*@

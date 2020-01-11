@@ -36,8 +36,9 @@ namespace LocationMaster_API.Domain
             const string lastNameAdmin = "Gigica";
             const string firstNameAdmin = "Comanel";
             var allowedRolesAdmin = new[] { "admin"};
+            var birthDate = DateTime.Now;
             var defaultProfileImageAdmin = Photo.Create("/StaticFiles/Images/ProfileImages/DefaultProfileImage.png");
-            var userAdmin = User.Create(usernameAdmin, passwordAdmin, emailAdmin, lastNameAdmin, firstNameAdmin, allowedRolesAdmin);
+            var userAdmin = User.Create(usernameAdmin, passwordAdmin, emailAdmin, lastNameAdmin, firstNameAdmin, birthDate, allowedRolesAdmin);
             //userAdmin.SetProfileImage(defaultProfileImageAdmin);
 
             const string usernameModerator = "moderator";
@@ -47,7 +48,7 @@ namespace LocationMaster_API.Domain
             const string firstNameModerator = "Comanel";
             var allowedRolesModerator = new[] { "moderator" };
             var defaultProfileImageModerator = Photo.Create("/StaticFiles/Images/ProfileImages/DefaultProfileImage.png");
-            var userModerator = User.Create(usernameModerator, passwordModerator, emailModerator, lastNameModerator, firstNameModerator, allowedRolesModerator);
+            var userModerator = User.Create(usernameModerator, passwordModerator, emailModerator, lastNameModerator, firstNameModerator, birthDate, allowedRolesModerator);
             //userModerator.SetProfileImage(defaultProfileImageModerator);
 
             const string usernameNormalUser = "user";
@@ -57,7 +58,7 @@ namespace LocationMaster_API.Domain
             const string firstNameNormalUser = "Comanel";
             var allowedRolesNormalUser = new[] { "user" };
             var defaultProfileImageNormalUser = Photo.Create("/StaticFiles/Images/ProfileImages/DefaultProfileImage.png");
-            var userNormalUser = User.Create(usernameNormalUser, passwordNormalUser, emailNormalUser, lastNameNormalUser, firstNameNormalUser, allowedRolesNormalUser);
+            var userNormalUser = User.Create(usernameNormalUser, passwordNormalUser, emailNormalUser, lastNameNormalUser, firstNameNormalUser, birthDate, allowedRolesNormalUser);
             //userNormalUser.SetProfileImage(defaultProfileImageNormalUser);
 
             modelBuilder.Entity<Photo>()
