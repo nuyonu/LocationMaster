@@ -10,10 +10,12 @@ namespace LocationMaster_FE.Services
     public class ImageService : IImageService
     {
         private HttpClient http;
+
         public ImageService(HttpClient http)
         {
             this.http = http;
         }
+
         public async Task<string> GetImageSrc(Guid id)
         {
             var response = await http.GetAsync(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/images/" + id);
