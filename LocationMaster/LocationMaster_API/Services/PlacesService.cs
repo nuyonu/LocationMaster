@@ -114,6 +114,17 @@ namespace LocationMaster_API.Services
                 : new Response<List<PlaceInfoResource>>(list);
         }
 
+        public Response<List<PlaceInfoResource>> GetPlacesByPrice(int count, bool ascending)
+        {
+            var places = _unitOfWork.Locations.GetFirstPlacesByPrice(count, ascending);
+
+            var list = places.Select(p => new PlaceInfoResource(p)).ToList();
+
+            return list.Count == 0
+                ? new Response<List<PlaceInfoResource>>($"No places found")
+                : new Response<List<PlaceInfoResource>>(list);
+        }
+
         public Response<PlaceSave> SaveAsync(PlaceSave resource)
         {
             var user = _unitOfWork.Users.Find(e => e.UserId == resource.OwnerId).ToList();

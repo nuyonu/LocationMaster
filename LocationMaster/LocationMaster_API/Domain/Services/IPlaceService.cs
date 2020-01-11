@@ -17,6 +17,7 @@ namespace LocationMaster_API.Domain.Services
         PlaceInfoResponse GetInfo(Guid id);
         Task<bool> DeleteAsync(Guid id);
         Response<List<PlaceInfoResource>> GetPlaceOfModerator(Guid id);
+        Response<List<PlaceInfoResource>> GetPlacesByPrice(int count, bool ascending);
         Response<PlaceSave> SaveAsync(PlaceSave resource);
         void Update(PlaceSave value, Guid id);
     }

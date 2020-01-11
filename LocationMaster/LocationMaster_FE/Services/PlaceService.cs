@@ -56,6 +56,11 @@ namespace LocationMaster_FE.Services
             return await _httpClient.GetJsonAsync<Response<PlaceInfoResource>>(BaseUrl + Port + $"/api/v1.0/Places/{id}");
         }
 
+        public async Task<Response<IEnumerable<PlaceInfoResource>>> GetPlacesByPrice(int count, bool ascending)
+        {
+            return await _httpClient.GetJsonAsync<Response<IEnumerable<PlaceInfoResource>>>(BaseUrl + Port + $"/api/v1.0/Places/PlacesByPrice/{count}/{ascending}");
+        }
+
         public PlaceService(HttpClient httpClient, SearchStorage storage)
         {
             _storage = storage;

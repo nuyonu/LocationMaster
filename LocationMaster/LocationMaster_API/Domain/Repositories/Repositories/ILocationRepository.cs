@@ -14,6 +14,8 @@ namespace LocationMaster_API.Domain.Repositories.Repositories
         Place GetById(Guid id);
 
         IEnumerable<Place> GetPlacesOfModerator(Guid id);
+
+        IEnumerable<Place> GetFirstPlacesByPrice(int count, bool ascending);
     }
     
 }
