@@ -1,38 +1,49 @@
-﻿<div class="location-category container-fluid">
+﻿@using LocationMaster_FE.Services
+@using LocationMaster_FE.Models.Responses
+@inject PlaceService placeService
+
+<div class="location-category container-fluid">
     <div class="row align-items-center">
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
-        <div class="col px-0 d-flex justify-content-center">
-            <LocationCard></LocationCard>
-        </div>
+        @foreach (var place in places)
+        {
+            <div class="col px-0 d-flex justify-content-center">
+                <LocationCard Name=@place.Name Address=@place.Address PlaceId=@place.PlaceId Price=@place.TicketPrice />
+            </div>
+        }
     </div>
 </div>
 
 @code {
+    [Parameter]
+    public string Value { get; set; }
 
+    public List<PlaceInfoResource> places = new List<PlaceInfoResource>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        switch (Value)
+        {
+            case "affordable":
+                await ShowAffordable();
+                break;
+
+            case "expensive":
+                await ShowExpensive();
+                break;
+        }
+    }
+
+    public async Task ShowAffordable()
+    {
+        var response = await placeService.GetPlacesByPrice(10, true);
+
+        places = response.data.ToList();
+    }
+
+    public async Task ShowExpensive()
+    {
+        var response = await placeService.GetPlacesByPrice(10, false);
+
+        places = response.data.ToList();
+    }
 }
