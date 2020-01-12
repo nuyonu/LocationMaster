@@ -9,6 +9,7 @@ namespace LocationMaster_API.Domain.Entities
         public string Name { get; private set; }
         public string Description { get; private set; }
         public Photo Photo { get; private set; }
+
         public static Attraction Create(string name, string description, Photo photo)
         {
             return new Attraction
@@ -25,6 +26,5 @@ namespace LocationMaster_API.Domain.Entities
             Name = request.Name;
             Description = request.Description;
         }
-        
     }
 }

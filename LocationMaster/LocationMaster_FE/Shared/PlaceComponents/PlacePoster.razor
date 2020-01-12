@@ -1,16 +1,26 @@
 ﻿@using LocationMaster_FE.Models.Responses
 <div class="place-poster">
-        <div class="poster-name-content">
-            <div class="poster-blur">
-                Here
-            </div>
-        
+    <div class="poster-name-content">
+        <h1>@_name</h1>
+
 
     </div>
 </div>
+
 @code {
-    
-        [Parameter]
-        public PlaceInfoResource Data { get; set; }
+
+    [Parameter]
+    public PlaceInfoResource Data { get; set; }
+
+    private string _name = "";
+
+    protected override void OnParametersSet()
+    {
+        if (Data != null)
+        {
+            _name = Data.Name;
+            StateHasChanged();
+        }
+    }
 
 }

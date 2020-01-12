@@ -1,12 +1,12 @@
 ﻿<div class="photo-gallery-column">
     @foreach (var photoUrl in Urls)
     {
-        <img src="@photoUrl" class="gallery-image" />
+        <img src="@($"data:image/jpg;base64,{Convert.ToBase64String(photoUrl)}")" class="gallery-image" />
     }
 </div>
 
 @code {
     [Parameter]
-    public List<string> Urls { get; set; }
+    public List<byte[]> Urls { get; set; }
     
 }
