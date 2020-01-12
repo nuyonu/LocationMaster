@@ -23,9 +23,9 @@
     [Parameter]
     public int Size { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-//        Storage.SetResource(await Service.GetInitialPage());
+    //        Storage.SetResource(await Service.GetInitialPage());
         Storage.RegistercContentPage(StateHasChanged);
     }
 

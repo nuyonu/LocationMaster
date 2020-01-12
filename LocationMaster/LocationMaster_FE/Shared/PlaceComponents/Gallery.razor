@@ -1,4 +1,7 @@
 ﻿@using LocationMaster_FE.Models.Responses
+@using LocationMaster_FE.Services
+@inject PlaceService Service
+
 <div class="container-place-atractions">
     <div class="container-body-attraction-top">
         <h2>Gallery</h2>
@@ -10,31 +13,60 @@
             <GalleryPlaceColumn Urls=_urList[2]></GalleryPlaceColumn>
     </div>
     <div class="container-body-attraction-top gallery-none">
+    @if(_urList[0].Count + _urList[1].Count + _urList[2].Count<_bytesImages.Count)
+    {
         <button class="button-ask" @onclick="LoadMorePhotos">More photos</button>
-
+    }
     </div>
 </div>
 @code {
-    private List<List<string>> _urList;
+    private List<List<byte[]>> _urList;
     private int collumn = 0;
     [Parameter]
     public PlaceInfoResource Data { get; set; }
 
+    private List<byte[]> _bytesImages;
     public void LoadMorePhotos()
     {
-        if (collumn == 3)
-            collumn = 0;
-        _urList[0].Add("images/index-page/first-image.webp");
-        _urList[1].Add("images/index-page/first-image.webp");
-        _urList[2].Add("images/index-page/first-image.webp");
-        collumn++;
+        if (_urList[0].Count + _urList[1].Count + _urList[2].Count < _bytesImages.Count)
+        {
+            var i=_urList[0].Count + _urList[1].Count + _urList[2].Count;
+            var j = i;
+            var a = 0;
+            while (i<_bytesImages.Count &&i<j+2)
+            {
+                _urList[a].Add(_bytesImages[i]);
+                a++;
+                if (a == 3)
+                    a = 0;
+                i++;
+            }
+            StateHasChanged();
+        }
     }
     protected override void OnInitialized()
     {
-        _urList=new List<List<string>>(){new List<string>(),new List<string>(),new List<string>()};
-        _urList[0].Add("images/index-page/first-image.webp");
-        _urList[1].Add("images/index-page/first-image.webp");
-        _urList[2].Add("images/index-page/first-image.webp");
+        _urList=new List<List<byte[]>>(){new List<byte[]>(),new List<byte[]>(),new List<byte[]>()};
+        _bytesImages=new List<byte[]>();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Data != null)
+        {
+            var photos = await Service.GetImagesOfPlace(Data.PlaceId.ToString());
+            _bytesImages=new List<byte[]>();
+            foreach (var bytesPhotos in photos.data.Values)
+            {
+                _bytesImages.Add(bytesPhotos);
+            }
+            _urList=new List<List<byte[]>>(){new List<byte[]>(),new List<byte[]>(),new List<byte[]>()};
+            for (int i = 0; i < 3; i++)
+            {
+                _urList[i].Add(_bytesImages[i]);
+            }
+            StateHasChanged();
+        }
     }
 
 }

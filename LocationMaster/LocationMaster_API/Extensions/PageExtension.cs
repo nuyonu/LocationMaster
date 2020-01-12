@@ -20,6 +20,7 @@ namespace LocationMaster_API.Extensions
 
         internal static IQueryable<Place> CustomSearch(this IQueryable<Place> query, string search)
         {
+            search = search.ToLower();
             return query.Where(s => (s.Owner.Email.ToLower().Contains(search) ||
                                      s.Owner.Username.ToLower().Contains(search) ||
                                      s.Category.Name.ToLower().Contains(search) ||
