@@ -25,6 +25,7 @@ namespace LocationMaster_FE
             services.AddScoped<ILoginService, JWTAuthenticationProvider>(
                 provider => provider.GetRequiredService<JWTAuthenticationProvider>());
             services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<ProfileImageState, ProfileImageState>();
             services.AddLogging();
             services.ConfigureDependencyInjection();
             services.ConfigureComponents();

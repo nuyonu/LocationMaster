@@ -20,5 +20,12 @@
             </LayoutView>
         </CascadingAuthenticationState>
     </NotFound>
+    <Found Context="routeData">
+        <RouteView RouteData="routeData" DefaultLayout="typeof(ChatLayout)" />
+    </Found>
+    <NotFound>
+        <h1>Page not found</h1>
+        <p>Sorry, but there's nothing here!</p>
+    </NotFound>
 </Router>
 <MatToastContainer />

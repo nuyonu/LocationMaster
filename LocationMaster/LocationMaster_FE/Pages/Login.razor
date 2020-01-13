@@ -46,7 +46,6 @@
         try
         {
             var result = await http.PostJsonAsync<UserToken>("https://localhost:5001/api/v1.0/Authentication/Login", userInfo);
-            Console.WriteLine(result.Token);
             await loginService.Login(result.Token);
             navigationManager.NavigateTo("");
         }

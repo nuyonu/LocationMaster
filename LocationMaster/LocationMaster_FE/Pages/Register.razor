@@ -79,11 +79,11 @@
         try
         {
             var result = await http.PostJsonAsync<UserInfoRegister>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/users", userInfo);
-            Console.WriteLine(result);
             navigationManager.NavigateTo("");
         }
         catch (Exception ex)
         {
+            ex.ToString();
             ResponseErrors = "Username already used!";
         }
     }

@@ -49,6 +49,11 @@ namespace LocationMaster_API.Controllers
             return _placeService.GetPlaceOfModerator(id);
         }
 
+        [HttpGet("PlacesByPrice/{count}/{ascending}")]
+        public Response<List<PlaceInfoResource>> GetPlacesByPrice(int count, bool ascending)
+        {
+            return _placeService.GetPlacesByPrice(count, ascending);
+        }
 
         [HttpPost]
         public IActionResult Post([FromBody] PlaceSave resource)

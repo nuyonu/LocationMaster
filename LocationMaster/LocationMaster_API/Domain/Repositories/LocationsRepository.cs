@@ -40,6 +40,12 @@ namespace LocationMaster_API.Domain.Repositories
             return _dbEntities.Places.Include(e => e.Owner).Include(e=>e.Category).Where(e => e.Owner.UserId == id).Include(e=>e.Photos).ToList();
         }
 
+        public IEnumerable<Place> GetFirstPlacesByPrice(int count, bool ascending)
+        {
+            if (ascending)
+                return _dbEntities.Places.Include(e => e.Owner).Include(e => e.Category).Include(e => e.Photos).OrderBy(e => e.TicketPrice).Take(count).ToList();
+            return _dbEntities.Places.Include(e => e.Owner).Include(e => e.Category).Include(e => e.Photos).OrderByDescending(e => e.TicketPrice).Take(count).ToList();
+        }
 
         private readonly LocationMasterContext _dbEntities;
     }

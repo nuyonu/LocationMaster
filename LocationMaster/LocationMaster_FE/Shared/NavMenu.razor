@@ -1,0 +1,15 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    
+    <button class="navbar-toggler" @onclick="@ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+@code {
+    bool collapseNavMenu = true;
+
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
