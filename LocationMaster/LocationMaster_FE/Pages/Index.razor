@@ -1,13 +1,71 @@
 @page "/"
-<TopPage PageTitle="LocationMaster Project"
+@inject NavigationManager navigationManager
+
+<TopPage PageTitle="Location Master"
          WithSearchBar="false"></TopPage>
-<h1 class="text-center">Make your dream come true</h1>
-<div class="main-container">
-    <div class="container1">
-        <img class="w-100 h-50" src="images/index-page/first-image.webp" alt="Mountain house" />
-        <div class="centered">Grow your business with us or find your iconic places to visit </div>
-    </div>
+
+<div class="main-container mt-n5">
+    <header class="masthead text-center">
+        <div class="overlay"></div>
+        <div class="container text-white">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h1 class="mb-7 deepshd-back deepshd-font">Grow your business with us or find your iconic places to visit!</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="showcase">
+        <div class="container-fluid p-0">
+            <div class="row no-gutters">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('../images/index-page/bg-showcase-1.jpg');"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                    <h2>Explore The Latest Places</h2>
+                    <p class="lead mb-0">Since there are so many wonderful attractions in the world, we made it easier for you to find the latest locations!</p>
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-lg-6 text-white showcase-img" style="background-image: url('../images/index-page/bg-showcase-2.jpg');"></div>
+                <div class="col-lg-6 my-auto showcase-text">
+                    <h2>Discover Affordable Locations</h2>
+                    <p class="lead mb-0">Since the budget plays a big role in choosing a place to visit, we make sure you get the best price per value!</p>
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('../images/index-page/bg-showcase-3.jpg');"></div>
+                <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                    <h2>Enjoy Extensive Details About Attractions</h2>
+                    <p class="lead mb-0">Every location has its own page, full of information and facts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="call-to-action text-white text-center">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 mx-auto">
+                    <h2 class="mb-4 deepshd-font">Ready to get started? Sign up now!</h2>
+                </div>
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <form>
+                        <div class="form-row">
+                            <div class="col-12 pr-5 pl-5">
+                                <button type="submit" class="btn btn-block btn-lg btn-primary" @onclick=GoToRegister>Sign up!</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 @code {
+    public void GoToRegister()
+    {
+        navigationManager.NavigateTo("/register");
+    }
 }

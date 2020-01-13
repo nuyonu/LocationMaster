@@ -84,7 +84,7 @@
 @media only screen and (min-width: 650px) {
     .container-places {
         display: grid;
-        grid-template-columns: 300px auto;
+        /*grid-template-columns: 300px auto;*/
     }
 }
 
