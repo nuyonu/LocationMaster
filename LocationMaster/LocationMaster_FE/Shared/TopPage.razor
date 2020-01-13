@@ -5,7 +5,7 @@
 <div class="top-page">
     <div class="top-page-opacity pt-5 mb-5">
         <div class="page-title @WithoutsearchBarClass">
-            <h1 class="mt-5 text-center pb-2 color-white">@PageTitle</h1>
+            <h1 class="mt-5 text-center pb-2 color-white deepshd-font">@PageTitle</h1>
         </div>
         @if (WithSearchBar)
         {
@@ -35,7 +35,7 @@
     void CheckClass()
     {
         if (!WithSearchBar)
-            WithoutsearchBarClass = "pb-64px";
+            WithoutsearchBarClass = "pb-24px";
         else
             WithoutsearchBarClass = null;
     }

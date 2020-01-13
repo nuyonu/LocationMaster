@@ -81,17 +81,17 @@ namespace LocationMaster_API.Migrations
                     b.HasData(
                         new
                         {
-                            PhotoId = new Guid("d9b66c89-932c-4e6f-a363-0bf919a6121e"),
+                            PhotoId = new Guid("6b54beff-df42-48b0-a1cd-bb1e82a078b7"),
                             Path = "/StaticFiles/Images/ProfileImages/DefaultProfileImage.png"
                         },
                         new
                         {
-                            PhotoId = new Guid("65a2ea00-f3f8-48f0-a1ea-30a7ff4c8c2a"),
+                            PhotoId = new Guid("8a74d481-9e1c-4e4f-9c3c-f49506b69a38"),
                             Path = "/StaticFiles/Images/ProfileImages/DefaultProfileImage.png"
                         },
                         new
                         {
-                            PhotoId = new Guid("ac2bb3d0-848c-4c12-abe5-371168ee7fbb"),
+                            PhotoId = new Guid("1d4c6957-9fa0-46dc-9a04-a714eafba70e"),
                             Path = "/StaticFiles/Images/ProfileImages/DefaultProfileImage.png"
                         });
                 });
@@ -198,35 +198,35 @@ namespace LocationMaster_API.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("19a56856-18d8-4070-943a-714294e34686"),
+                            UserId = new Guid("1988ca44-9533-488d-b50a-e75d26da78a5"),
                             AllowedRoles = new[] { "admin" },
-                            BirthDate = new DateTime(2020, 1, 12, 17, 4, 58, 872, DateTimeKind.Local).AddTicks(5439),
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             FirstName = "Comanel",
                             LastName = "Gigica",
-                            Password = "$MYHASH$V1$10000$cxGUQagJgT6k4rqJqQ0cZgQn6YX3ytnqQufGbfLl5p1yHa3neRV7k6FBJZhSEqiJEONPz1jr5JprxVd8HgrXDvM8bV3Pem02WkB+mDIyOUU=",
+                            Password = "$MYHASH$V1$10000$hwapC7G1RBS9iHOHq/P58jUV3mg8ncqKFaNj0o1gqm+JX8gzs0ce3LEgpmFMjLNdFpgUWJEsikP8gIisSHyDfIl6vYMl5KVVvRML2jEfSG8=",
                             Username = "admin"
                         },
                         new
                         {
-                            UserId = new Guid("ba237a6d-a260-43e3-afee-8222e6ea94ac"),
+                            UserId = new Guid("ceab63b6-95db-4765-8fbb-e3b8640b10f1"),
                             AllowedRoles = new[] { "moderator" },
-                            BirthDate = new DateTime(2020, 1, 12, 17, 4, 58, 872, DateTimeKind.Local).AddTicks(5439),
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "moderator@gmail.com",
                             FirstName = "Comanel",
                             LastName = "Jhony",
-                            Password = "$MYHASH$V1$10000$ydf/zztvARE2dboWnW2E93uh/SoQ8yoB5xo3t7TyH83o4caElR/VD5gAP3osjLIjbGsdqxkkealGMsKW3dcRbqGlETASMRnMIZ/7T6hUIvw=",
+                            Password = "$MYHASH$V1$10000$+efBlE4CCzGlYTQyr0wkTBCuHDvAeU1DMCBdrP61ubZ4lwvAuyKbro8HzOxPtuPrtCMePDYkZoeLXhezYjiwm3qtxy/qgxNwsPZOwFdwxeo=",
                             Username = "moderator"
                         },
                         new
                         {
-                            UserId = new Guid("1d94f0fe-2f9d-4bbb-92b3-6e5b615e08e2"),
+                            UserId = new Guid("a2d5e9bd-4dd7-40f9-83d3-5cfcfb19645c"),
                             AllowedRoles = new[] { "user" },
-                            BirthDate = new DateTime(2020, 1, 12, 17, 4, 58, 872, DateTimeKind.Local).AddTicks(5439),
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "user@gmail.com",
                             FirstName = "Comanel",
                             LastName = "Florinel",
-                            Password = "$MYHASH$V1$10000$rZFp8JlPznvjq1NX+Y8OWYpQAuGfIMPU+7QatRoNVTTe2FmRCj8UuTo5FkvFVGOToQGT67c6kLJdz84n2O1E/qnpuUWgpJ4ChMCS5qZwYQ0=",
+                            Password = "$MYHASH$V1$10000$UvjXnB+I3gAj8svnSgb7uIALZvjwt5dvEH7NbLU+X1BWpup6O/eUx1ncHCC3Jnrtq+dQuNFovZKAIEL+z3PVxRVzJ1TVzZsVN4xPHooz1HQ=",
                             Username = "user"
                         });
                 });

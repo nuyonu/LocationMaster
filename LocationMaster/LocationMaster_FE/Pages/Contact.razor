@@ -77,13 +77,24 @@
 
     protected override async Task OnInitializedAsync()
     {
+
         if (authState != null)
         {
             principal = (await authState).User;
+            try
+            {
+                var userId = principal.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value;
+                user = await http.GetJsonAsync<UserResponse>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/users/" + userId);
+                fullName = user.LastName + " " + user.FirstName;
+            }
+            catch(Exception ex)
+            {
+                ex.ToString();
+                fullName = "";
+                user.Email = "your_email@example.com";
+            }
+            
         }
-        var userId = principal.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value;
-        user = await http.GetJsonAsync<UserResponse>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/users/" + userId);
-        fullName = user.LastName + " " + user.FirstName;
     }
 
     public void ContactUs()

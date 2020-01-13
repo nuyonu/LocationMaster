@@ -11,7 +11,7 @@
     <div class="content-body-places">
         @foreach (var place in Storage.Resources)
         {
-            <LocationCard Name=@place.Name/>
+        <LocationCard Name=@place.Name Address=@place.Address Price=@place.TicketPrice Category=@place.Category PlaceId=@place.PlaceId />
         }
     </div>
     <LocationMaster_FE.Shared.SearchLocations.SmallComponents.Pagination OnClick="ClickHandler" MaxOffset=4 MaxPage=@Storage.PageCount CurrentPage=@Storage.CurrentPage></LocationMaster_FE.Shared.SearchLocations.SmallComponents.Pagination>

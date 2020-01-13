@@ -7,8 +7,8 @@
 @using LocationMaster_FE.Models
 
 <TopPage PageTitle="Log In"></TopPage>
-<div class="d-flex justify-content-center">
-    <EditForm class="w-50" Model="userInfo" OnValidSubmit="LoginUser">
+<div class="d-flex justify-content-center margin-bottom-210px">
+    <EditForm class="w-50 shadow-lg p-3 mb-5 bg-white rounded max-w-600px" Model="userInfo" OnValidSubmit="LoginUser">
         <DataAnnotationsValidator />
         <div class="text-danger text-center">
             @ErrorMessage

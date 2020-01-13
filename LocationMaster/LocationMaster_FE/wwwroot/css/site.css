@@ -1,5 +1,4 @@
-﻿/*@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');*/
-
+﻿﻿ /*@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');*/
 /*Default css*/
 html,
 body {
@@ -15,7 +14,6 @@ p {
 }
 
 .main-container {
-
 }
 
 #blazor-error-ui {
@@ -30,16 +28,20 @@ p {
     z-index: 1000;
 }
 
-#blazor-error-ui .dismiss {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.5rem;
-}
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
 
 /*Spacing*/
 .pb-64px {
     padding-bottom: 64px;
+}
+
+.pb-24px {
+    padding-bottom: 24px;
 }
 
 .mt-100px {
@@ -49,7 +51,7 @@ p {
 /*Borders*/
 .border-bottom-3px {
     border: none;
-    border-bottom: 2px solid!important;
+    border-bottom: 2px solid !important;
 }
 
 /*Colors and others*/
@@ -90,4 +92,8 @@ p {
     margin-top: .25rem;
     font-size: 80%;
     color: #dc3545;
+}
+
+.margin-bottom-210px {
+    margin-bottom: 210px;
 }
