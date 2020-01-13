@@ -50,9 +50,25 @@
 
     bool valid()
     {
-        if (_saveAttraction.Name == null || _saveAttraction.Description == null)
+        if (String.IsNullOrEmpty(_saveAttraction.Name))
+        {
+            Toaster.Add("Please add a name for attraction", MatToastType.Info);
+
             return false;
-        return _saveAttraction.Name != "" && _saveAttraction.Description.Length > 39;
+        }
+        if (String.IsNullOrEmpty(_saveAttraction.Description))
+        {
+            Toaster.Add("Please add a description for attraction", MatToastType.Info);
+
+            return false;
+        }
+        if (_saveAttraction.Description.Length < 40)
+        {
+            Toaster.Add("A description for attraction need to have at least 40 characters", MatToastType.Info);
+
+            return false;
+        }
+        return true;
     }
 
     void OpenDialogNewPlace()
@@ -68,27 +84,32 @@
         _saveAttraction.Name = "";
     }
 
-    async void OnClickSavePlace()
+     void OnClickSavePlace()
     {
         if (_saveAttraction.Photo.Length == 0)
             Toaster.Add("You must a photo for attraction", MatToastType.Danger, "Photo for attraction", "");
-        if (!valid())
-            Toaster.Add("Please add info for place", MatToastType.Info);
         else
         {
-            dialogIsOpenNewPlace = false;
-            if (AttractionsService.Save(Guid.Parse(Id), _saveAttraction))
-            {
-//                Attractions.UpdateList(_saveAttraction);
-                Toaster.Add("Attraction was saved successfully", MatToastType.Success, "Create Attraction", "");
-            }
+            if (!valid())
+                Toaster.Add("Please add info for place", MatToastType.Info);
             else
-                Toaster.Add("Save attraction failed", MatToastType.Danger, "Fail Create Attraction", "");
+            {
+                dialogIsOpenNewPlace = false;
+                if (AttractionsService.Save(Guid.Parse(Id), _saveAttraction))
+                {
+    //                Attractions.UpdateList(_saveAttraction);
+                    Attractions.refresh();
+                    Toaster.Add("Attraction was saved successfully", MatToastType.Success, "Create Attraction", "");
+                }
+                else
+                    Toaster.Add("Save attraction failed", MatToastType.Danger, "Fail Create Attraction", "");
+            }
         }
     }
 
     [Parameter]
     public string Id { get; set; }
+
 
     [CascadingParameter]
     public AdminAttractions Attractions { get; set; }

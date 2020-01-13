@@ -27,6 +27,7 @@
                 <p class="dropdown-item">@context.User.Claims.FirstOrDefault(c => c.Type == "sub").Value</p>
             </AuthorizeView>
             <NavLink class="dropdown-item" href="myprofile">My Profile</NavLink>
+            <NavLink class="dropdown-item" href="Chatting">Start Chat</NavLink>
             <button class="btn btn-primary dropdown-item" @onclick="Logout">Logout</button>
         </div>
     </div>

@@ -15,7 +15,9 @@
 @inject IAttractionsService AttractionsService
 @using LocationMaster_FE.Shared.Admin
 <div class="admin-place-body">
-    <NewAttraction Id=@_id/>
+    <CascadingValue Value="this">
+        <NewAttraction Id=@_id/>
+    </CascadingValue>
     <MatButton OnClick="DeleteAttractions" Raised="true">Delete selected attractions</MatButton>
     <MatTable Items="@_responses" class="mat-elevation-z5" FilterByColumnName="Name" DebounceMilliseconds="150">
         <MatTableHeader>
@@ -88,10 +90,15 @@
         }
     }
 
-    async void OpenDialog(AttractionResponse response)
+    void OpenDialog(AttractionResponse response)
     {
         _requestUpdate = UpdateAttractionRequest.Create(response);
         _dialogIsOpen = true;
+    }
+
+    public async void refresh()
+    {
+        await OnInitializedAsync();
     }
 
     public void UpdateList(SaveAttractionResource _saveAttraction)
@@ -148,13 +155,14 @@
                 else
                 {
                     StateHasChanged();
-                    UpdateImages();
+                    await UpdateImages();
                 }
             }
         }
         else
             Toaster.Add("Invalid Id", MatToastType.Danger);
     }
+
 
     private bool _dialogIsOpen = false;
     private UpdateAttractionRequest _requestUpdate = new UpdateAttractionRequest();
