@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocationMaster_API", "LocationMaster_API\LocationMaster_API.csproj", "{2DD2D064-685D-49C6-8041-FFD74374E71A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationMaster_FE", "LocationMaster_FE\LocationMaster_FE.csproj", "{5C58D4AE-B60A-47F0-B8B6-1AB262B796F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocationMaster_FE", "LocationMaster_FE\LocationMaster_FE.csproj", "{5C58D4AE-B60A-47F0-B8B6-1AB262B796F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorChatSample.Server", "C:\Users\Dragos\Downloads\BlazorChatSample-master\BlazorChatSample-master\BlazorChatSample.Server\BlazorChatSample.Server.csproj", "{BB69F22F-C455-4B3E-9488-60A71168949C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5C58D4AE-B60A-47F0-B8B6-1AB262B796F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C58D4AE-B60A-47F0-B8B6-1AB262B796F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C58D4AE-B60A-47F0-B8B6-1AB262B796F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB69F22F-C455-4B3E-9488-60A71168949C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB69F22F-C455-4B3E-9488-60A71168949C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB69F22F-C455-4B3E-9488-60A71168949C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB69F22F-C455-4B3E-9488-60A71168949C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
