@@ -1,0 +1,15 @@
+﻿@using LocationMaster_FE.ContainerState
+@inject SearchStorage StorageSea
+@inject PagesPlacesStorage Storage
+<p class="page-result-size">@Storage.RowCount results found</p>
+
+@code {
+
+    [Parameter]
+    public int Size { get; set; }
+    public void ShowData()
+    {
+        StateHasChanged();
+    }
+
+}

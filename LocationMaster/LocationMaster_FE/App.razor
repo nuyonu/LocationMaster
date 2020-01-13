@@ -1,0 +1,40 @@
+﻿<Router AppAssembly="typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)">
+            <NotAuthorized>
+                <div class="body">
+                    <div class="scene">
+                        <div class="overlay"></div>
+                        <div class="overlay"></div>
+                        <div class="overlay"></div>
+                        <div class="overlay"></div>
+                        <span class="bg-403">401</span>
+                        <div class="text">
+                            <span class="hero-text"></span>
+                            <span class="msg">can't let <span>you</span> in.</span>
+                            <span class="support">
+                                <span>unexpected?</span>
+                                <a href="/contact">contact support</a>
+                                or
+                                <a href="/login">log in</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </NotAuthorized>
+            <Authorizing>
+                <h1>Authentication in progress</h1>
+                <p>Only visible while authentication is in progress.</p>
+            </Authorizing>
+        </AuthorizeRouteView>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <h1>Page not found</h1>
+                <p>Sorry, but there's nothing here!</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>
+<MatToastContainer />

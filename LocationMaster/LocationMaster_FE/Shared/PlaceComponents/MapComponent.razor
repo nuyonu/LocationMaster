@@ -1,0 +1,48 @@
+﻿@inject IJSRuntime JSRuntime
+@using LocationMaster_FE.Models.Responses
+<div class="container-place-atractions">
+    <div class="container-body-attraction-top">
+        <h2>Map</h2>
+    </div>
+    <div class="container-body-attraction">
+        <div class="container-place-map">
+            <div id="myMap" style="position:relative; width: 100%; height: 70vh;"></div>
+
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public PlaceInfoResource Data { get; set; }
+
+    double Latitude;
+    double Longitude;
+
+    protected override void OnParametersSet()
+    {
+        if (Data != null)
+        {
+            Latitude = Data.location["Longitude"];
+            Longitude = Data.location["Latitude"];
+    //          
+        }
+    //        foreach (var keys in Data.location.Keys)
+    //        {
+    //            Console.WriteLine(keys);
+    //        }
+    //        Data.location.Keys);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        Console.WriteLine(Latitude.ToString() + " " + Longitude.ToString());
+
+    //        if (firstRender)
+    //        {
+        var text = await JSRuntime.InvokeAsync<string>("initMap", Latitude, Longitude);
+    //        }
+    }
+
+}

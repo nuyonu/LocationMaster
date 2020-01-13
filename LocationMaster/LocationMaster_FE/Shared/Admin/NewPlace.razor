@@ -1,0 +1,200 @@
+﻿@using System.IO
+@using System.Text.Json
+@using BlazorInputFile
+@using LocationMaster_FE.Models.Responses
+@using LocationMaster_FE.Services
+@using LocationMaster_FE.Services.IServices
+@inject IGeolocationService GeolocationService
+@using Models
+@using System.ComponentModel.DataAnnotations
+@using LocationMaster_FE.Pages
+@inject PlaceService PlaceService
+@inject IMatToaster Toaster
+
+<MatButton OnClick="@OpenDialogNewPlace" Raised="true">Add new place</MatButton>
+
+<MatDialog @bind-IsOpen="@dialogIsOpenNewPlace" Class="custom_dialog">
+    <MatDialogTitle>Create a new place </MatDialogTitle>
+    <MatDialogContent>
+        <MatTextField @bind-Value="@_placeToSave.Name" Label="Name" HelperText="A place need to have a name." HelperTextValidation="true" Required="true"></MatTextField>
+        <MatTextField @bind-Value="@_placeToSave.Description" HelperText="A place need to have a description." HelperTextValidation="true" Label="Description" TextArea="true" Required="true"></MatTextField>
+        <MatNumericUpDownField
+            Label="Ticket Price"
+            @bind-Value=@price
+            Step="0.01m"
+            Minimum=0
+            Required="true"
+            HelperText="A place need to have a price greater than 0 ." HelperTextValidation="true"
+            DecimalPlaces=2>
+        </MatNumericUpDownField>
+        @*  *@
+        <BlazoredTypeahead SearchMethod="UpdateSearch"
+                           @bind-Value="_placeToSave.Address">
+            <SelectedTemplate>
+                @context
+            </SelectedTemplate>
+            <ResultTemplate>
+                @context
+            </ResultTemplate>
+        </BlazoredTypeahead>
+
+
+        <MatTextField @bind-Value="@category" Label="Category" OnKeyPress="@OnKeyPressHandler" HelperText="A place need to have a category." HelperTextValidation="true"></MatTextField>
+        <MatChipSet>
+            @foreach (var label in _placeToSave.Tags)
+            {
+                <MatChip Label="@label"></MatChip>
+            }
+        </MatChipSet>
+        <InputFile OnChange="HandleSelection"/>
+        <MatList>
+            @foreach (var photo in _photosName)
+            {
+                <MatListItem>
+                    @photo
+                    <MatButton Icon="delete" OnClick="@(() => RemovePhoto(photo))"></MatButton>
+
+                </MatListItem>
+                <MatListDivider></MatListDivider>
+            }
+
+        </MatList>
+
+    </MatDialogContent>
+
+    <MatDialogActions>
+        <MatButton OnClick="@OnCancelButton">Cancel</MatButton>
+        <MatButton OnClick="@OnClickSavePlace">Save</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code
+{
+
+    [Parameter]
+    public Guid Id { get; set; }
+    [CascadingParameter] AdminPlaces Places { get; set; }
+    async Task HandleSelection(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            var ms = new MemoryStream();
+            await file.Data.CopyToAsync(ms);
+            _photosName.Add(file.Name);
+            _placeToSave.PhotosContentStreams.Add(file.Name, ms.ToArray());
+            StateHasChanged();
+        }
+    }
+
+    void OnKeyPressHandler(KeyboardEventArgs e)
+    {
+        if (e.Code == "Enter")
+        {
+            if (!_placeToSave.Tags.Contains(category2))
+            {
+                _placeToSave.Tags.Add(category2);
+                StateHasChanged();
+            }
+            category = "";
+            category2 = "";
+        }
+        else
+        {
+            category2 += e.Key;
+        }
+        Console.WriteLine(e.Key);
+        Console.WriteLine(category2);
+    }
+
+    void OpenDialogNewPlace()
+    {
+        dialogIsOpenNewPlace = true;
+    }
+
+    private async Task<IEnumerable<string>> UpdateSearch(string searchText)
+    {
+        return await GeolocationService.GetPredictions(searchText);
+    }
+
+    private void RemovePhoto(string photo)
+    {
+        _photosName.Remove(photo);
+        _placeToSave.PhotosContentStreams.Remove(photo);
+    }
+
+    void OnCancelButton()
+    {
+        dialogIsOpenNewPlace = false;
+        _photosName.Clear();
+        _placeToSave.PhotosContentStreams.Clear();
+    }
+
+    private bool IsValid()
+    {
+        if (_placeToSave.Address == null)
+        {
+            Toaster.Add("The address is not completed", MatToastType.Info, "Place validation");
+            return false;
+        }
+
+        if (_placeToSave.Description == null)
+        {
+            Toaster.Add("The description is not completed", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (_placeToSave.Description.Length < 40)
+        {
+            Toaster.Add("The Description need to have at least 40 characthers", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (String.IsNullOrEmpty(_placeToSave.Name)) 
+        {
+            Toaster.Add("The name is not completed", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (_placeToSave.TicketPrice <= 0)
+        {
+            Toaster.Add("The ticket price need to be greater than 0", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (_placeToSave.Tags.Count == 0)
+        {
+            Toaster.Add("A place need to have at least a category", MatToastType.Info, "Place validation");
+            return false;   
+        }
+        return true;
+    }
+
+    async void OnClickSavePlace()
+    {
+        _placeToSave.TicketPrice = Decimal.ToDouble(price);
+        if (_placeToSave.PhotosContentStreams.Count < 3)
+        {
+            Toaster.Add("You must have at least 3 photos", MatToastType.Danger, "Photos", "");
+        }
+        else
+        {
+            if (IsValid())
+            {
+                dialogIsOpenNewPlace = false;
+                _placeToSave.OwnerId = Id;
+                var location = await GeolocationService.GetCoordonate(_placeToSave.Address);
+                _placeToSave.Lat = location[0];
+                _placeToSave.Ltn = location[1];
+                _placeToSave.Category = "Car";
+                Toaster.Add("Place was saved succesfully", MatToastType.Success, "Place Created", "");
+                await PlaceService.PostPlace(_placeToSave);
+//                Places.refresh();
+            }
+        }
+    }
+
+    private bool dialogIsOpenNewPlace = false;
+    decimal price = 0m;
+    private string category;
+    private string category2;
+//    private string _selectedOption;
+    private List<string> _photosName = new List<string>();
+    private PlaceSave _placeToSave = new PlaceSave();
+}

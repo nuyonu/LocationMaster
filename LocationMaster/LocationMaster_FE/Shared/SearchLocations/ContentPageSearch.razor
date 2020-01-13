@@ -1,0 +1,39 @@
+﻿@using System.Text.Json
+@using LocationMaster_FE.ContainerState
+@using LocationMaster_FE.Services
+@inject PagesPlacesStorage Storage
+@inject PlaceService Service
+@* @implements IDisposable *@
+@inject SearchStorage SearchStorage
+
+<div id="content">
+    <SizeResult Size=@Storage.RowCount></SizeResult>
+    <div class="content-body-places">
+        @foreach (var place in Storage.Resources)
+        {
+        <LocationCard Name=@place.Name Address=@place.Address Price=@place.TicketPrice Category=@place.Category PlaceId=@place.PlaceId />
+        }
+    </div>
+    <LocationMaster_FE.Shared.SearchLocations.SmallComponents.Pagination OnClick="ClickHandler" MaxOffset=4 MaxPage=@Storage.PageCount CurrentPage=@Storage.CurrentPage></LocationMaster_FE.Shared.SearchLocations.SmallComponents.Pagination>
+</div>
+
+@code {
+
+
+    [Parameter]
+    public int Size { get; set; }
+
+    protected override void OnInitialized()
+    {
+    //        Storage.SetResource(await Service.GetInitialPage());
+        Storage.RegistercContentPage(StateHasChanged);
+    }
+
+
+    public async void ClickHandler(int page)
+    {
+        Console.WriteLine(page);
+        Storage.SetResource(await Service.GetPage(page));
+    }
+
+}

@@ -1,0 +1,27 @@
+﻿/*MyProfile Page*/
+.myprofile-container {
+    background-image: url("../images/main-images/main-image.png");
+    background-size: cover;
+    height: 100%;
+}
+
+.myprofile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+    border: 5px solid white;
+    filter: drop-shadow(5px 5px 6px rgba(0, 0, 0, 0.78));
+}
+
+
+@media screen and (max-width: 1024px) {
+    .myprofile-container {
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .mt-100px {
+        margin-top: 190px;
+    }
+}
