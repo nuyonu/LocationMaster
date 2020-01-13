@@ -7,6 +7,7 @@
 @inject IGeolocationService GeolocationService
 @using Models
 @using System.ComponentModel.DataAnnotations
+@using LocationMaster_FE.Pages
 @inject PlaceService PlaceService
 @inject IMatToaster Toaster
 
@@ -72,7 +73,7 @@
 
     [Parameter]
     public Guid Id { get; set; }
-
+    [CascadingParameter] AdminPlaces Places { get; set; }
     async Task HandleSelection(IFileListEntry[] files)
     {
         var file = files.FirstOrDefault();
@@ -131,8 +132,37 @@
 
     private bool IsValid()
     {
-        if (_placeToSave.Address == null || _placeToSave.Description == null || _placeToSave.Name == null || _placeToSave.TicketPrice == 0)
+        if (_placeToSave.Address == null)
+        {
+            Toaster.Add("The address is not completed", MatToastType.Info, "Place validation");
             return false;
+        }
+
+        if (_placeToSave.Description == null)
+        {
+            Toaster.Add("The description is not completed", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (_placeToSave.Description.Length < 40)
+        {
+            Toaster.Add("The Description need to have at least 40 characthers", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (String.IsNullOrEmpty(_placeToSave.Name)) 
+        {
+            Toaster.Add("The name is not completed", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (_placeToSave.TicketPrice <= 0)
+        {
+            Toaster.Add("The ticket price need to be greater than 0", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (_placeToSave.Tags.Count == 0)
+        {
+            Toaster.Add("A place need to have at least a category", MatToastType.Info, "Place validation");
+            return false;   
+        }
         return true;
     }
 
@@ -154,10 +184,9 @@
                 _placeToSave.Ltn = location[1];
                 _placeToSave.Category = "Car";
                 Toaster.Add("Place was saved succesfully", MatToastType.Success, "Place Created", "");
-                PlaceService.PostPlace(_placeToSave);
+                await PlaceService.PostPlace(_placeToSave);
+//                Places.refresh();
             }
-            else
-                Toaster.Add("The model is invalid", MatToastType.Info, "Place Created");
         }
     }
 
@@ -165,7 +194,7 @@
     decimal price = 0m;
     private string category;
     private string category2;
-    private string _selectedOption;
+//    private string _selectedOption;
     private List<string> _photosName = new List<string>();
     private PlaceSave _placeToSave = new PlaceSave();
 }

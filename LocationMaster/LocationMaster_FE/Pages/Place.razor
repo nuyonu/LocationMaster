@@ -14,13 +14,12 @@
 <AttractionsPlace Id=@_id/>
 <MapComponent Data=@_detailsPlace/>
 <Gallery Data=@_detailsPlace/>
-<ReviewsPlaces Data=@_detailsPlace/>
+@* <ReviewsPlaces Data=@_detailsPlace/> *@
 
 @code {
 
     private string _id;
     private PlaceInfoResource _detailsPlace;
-
 
     protected override async Task OnInitializedAsync()
     {
@@ -30,8 +29,7 @@
             _id = param.First();
             var response = await Service.GetPlace(Guid.Parse(_id));
             _detailsPlace = response.data;
-            
-    //            Console.WriteLine(JsonSerializer.Serialize(_detailsPlace));
+            StateHasChanged();
         }
     }
 

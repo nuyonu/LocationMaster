@@ -53,7 +53,8 @@ namespace LocationMaster_FE.Services
 
         public async Task<Response<PlaceInfoResource>> GetPlace(Guid id)
         {
-            return await _httpClient.GetJsonAsync<Response<PlaceInfoResource>>(BaseUrl + Port + $"/api/v1.0/Places/{id}");
+            return await _httpClient.GetJsonAsync<Response<PlaceInfoResource>>(
+                BaseUrl + Port + $"/api/v1.0/Places/{id}");
         }
 
         public async Task<Response<IEnumerable<PlaceInfoResource>>> GetPlacesByPrice(int count, bool ascending)
@@ -69,7 +70,7 @@ namespace LocationMaster_FE.Services
             Port = "5001";
         }
 
-        public async Task Put(PlaceSave placeSave,string id)
+        public async Task Put(PlaceSave placeSave, string id)
         {
             await _httpClient.PutJsonAsync(BaseUrl + Port + $"/api/v1.0/Places/{id}", placeSave);
         }
@@ -79,6 +80,7 @@ namespace LocationMaster_FE.Services
             return await _httpClient.GetJsonAsync<Response<Dictionary<string, byte[]>>>(
                 BaseUrl + Port + $"/api/v1.0/Images/Places/{id}");
         }
+
 //        public async Task Put(PlaceSave)
     }
 }

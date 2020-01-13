@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
-using AutoMapper;
-using LocationMaster_API.Domain;
-using LocationMaster_API.Domain.Entities;
 using LocationMaster_API.Domain.Services;
 using LocationMaster_API.Domain.Services.Communication;
-using LocationMaster_API.Domain.UnitOfWork;
 using LocationMaster_API.Extensions;
 using LocationMaster_API.Resources;
-using LocationMaster_API.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace LocationMaster_API.Controllers
 {
@@ -22,13 +14,9 @@ namespace LocationMaster_API.Controllers
     [Route("/api/v{v:apiVersion}/[controller]")]
     public class PlacesController : Controller
     {
-        public PlacesController(IMapper mapper, ILogger<PlacesController> logger, LocationMasterContext context,
-            IPlaceService placeService)
+        public PlacesController(IPlaceService placeService)
         {
             _placeService = placeService;
-            _context = context;
-            _mapper = mapper;
-            _logger = logger;
         }
 
         [HttpGet("pages")]
@@ -68,7 +56,7 @@ namespace LocationMaster_API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] PlaceSave resource)
+        public IActionResult Post([FromBody] PlaceSave resource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState.GetErrorMessages());
@@ -79,15 +67,6 @@ namespace LocationMaster_API.Controllers
         public void Put(Guid id, [FromBody] PlaceSave value)
         {
             _placeService.Update(value, id);
-//            var unitOfWork = new UnitOfWork(_context);
-//            var user = unitOfWork.Users.Find(s => s.Username == "moderator").First();
-//            var cat = Category.Create("cat2");
-//            unitOfWork.Category.Add(cat);
-//            for (var i = 0; i < 1000; i++)
-//                unitOfWork.Locations.Add(Place.Create(user, "loc" + i.ToString(), "dasd" + i.ToString(), cat, 12 + i,
-//                    "89 West 86th Transverse Road, New York, NY 10024 New York, Central Park New York, Manhattan New York United States",
-//                    40.785091, -73.968285));
-//            unitOfWork.Complete();
         }
 
         [HttpDelete("{id}")]
@@ -100,10 +79,8 @@ namespace LocationMaster_API.Controllers
         }
 
 
-        private readonly IMapper _mapper;
-        private readonly ILogger<PlacesController> _logger;
-        private readonly LocationMasterContext _context;
+//        private readonly LocationMasterContext _context;
         private readonly IPlaceService _placeService;
-        private readonly PlaceWithImageService _withImageService;
+//        private readonly PlaceWithImageService _withImageService;
     }
 }
