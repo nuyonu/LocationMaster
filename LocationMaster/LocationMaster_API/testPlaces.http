@@ -1,0 +1,39 @@
+﻿# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection) or
+# paste cURL into the file and request will be converted to HTTP Request format.
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+GET http://localhost:53511/api/users
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+###
+
+#get all places
+GET http://localhost:53511/api/places
+Accept: */*
+Cache-Control: no-cache
+
+###
+#get a page of places
+GET http://localhost:53511/api/v1/Places/pages?page=1&sizePage=5&descending=true&orderBy=owner
+Accept: */*
+Cache-Control: no-cache
+
+###
+#get a place
+GET http://localhost:53511/api/v1/Places/b08218d8-b0be-40e3-97e3-51900943fd98
+Accept: */*
+Content-Type: application/json
+
+{
+  "aa": {
+    "ass": 1
+  }
+}
+
+###

@@ -1,0 +1,67 @@
+﻿@using LocationMaster_FE.Auth
+@using LocationMaster_FE.Models
+@using System.Security.Claims
+@using LocationMaster_FE.Services.IServices
+@using LocationMaster_FE.ContainerState
+@inject HttpClient http
+@inject ProfileImageState profileImageState
+@inject ILoginService loginService
+@inject IImageService  imageService
+@inject NavigationManager navigationManager
+
+@*<div class="nav-item">
+    <i class="fa fa-envelope"></i>
+</div>
+<div class="nav-item">
+    <i class="fa fa-calendar"></i>
+</div>
+<div class="nav-item">
+    <i class="fa fa-bell"></i>
+</div>*@
+<div class="nav-item">
+    <div class="dropdown show">
+        <img class="profile-image dropdown-toggle" src="@profileImageState.ImgSrc" role="button"
+             id="dropDownMenuProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown-menu" aria-labelledby="dropDownMenuProfile">
+            <AuthorizeView>
+                <p class="dropdown-item">@context.User.Claims.FirstOrDefault(c => c.Type == "sub").Value</p>
+            </AuthorizeView>
+            <NavLink class="dropdown-item" href="myprofile">My Profile</NavLink>
+            <button class="btn btn-primary dropdown-item" @onclick="Logout">Logout</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authState { get; set; }
+
+    private ClaimsPrincipal principal;
+
+    private UserResponse user = new UserResponse();
+
+    protected override async Task OnInitializedAsync()
+    {
+        profileImageState.RegistercContentPage(StateHasChanged);
+        if (authState != null)
+        {
+            principal = (await authState).User;
+        }
+        string userId = principal.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value;
+        await InitializeProfileImage(userId);
+    }
+
+    public async Task InitializeProfileImage(string userId)
+    {
+        user = await http.GetJsonAsync<UserResponse>(AppConfig.BaseUrl + AppConfig.Port + "/api/v1.0/users/" + userId);
+        var imageId = user.ProfileImage.PhotoId;
+
+        profileImageState.ImgSrc = await imageService.GetImageSrc(imageId);
+    }
+
+    public async Task Logout()
+    {
+        await loginService.Logout();
+        navigationManager.NavigateTo("");
+    }
+}

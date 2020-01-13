@@ -1,0 +1,31 @@
+﻿@using LocationMaster_FE.ContainerState
+@inject SearchState SearchState
+<div class="places-component-line love">
+    <div class="places-love">
+        <input type="radio" id="love`@Size`" value="@Size" @onclick="SetState">
+               <label for="love`@Size`">
+                   @for (var it = 0; it < Size; it++)
+                   {
+                       <i class="fas fa-heart"></i>
+                   }
+               </label>
+
+               </div>
+               <div class="places-love-count">@Value</div>
+
+               </div>
+
+               @code {
+
+                   [Parameter]
+                   public int Size { get; set; }
+
+                   [Parameter]
+                   public string Value { get; set; }
+
+                   public void SetState()
+                   {
+                       SearchState.SetRating(Size);
+                   }
+
+               }

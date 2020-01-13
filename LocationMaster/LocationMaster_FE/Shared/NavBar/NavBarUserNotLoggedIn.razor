@@ -1,0 +1,16 @@
+﻿@inject NavigationManager navigationManager
+
+<button class="btn btn-sm btn-primary mr-2" @onclick="NavigateToLoginPage">Login</button>
+<button class="btn btn-sm btn-primary" @onclick="NavigateToRegisterPage">Register</button>
+
+@code {
+    void NavigateToLoginPage()
+    {
+        navigationManager.NavigateTo("/login");
+    }
+
+    void NavigateToRegisterPage()
+    {
+        navigationManager.NavigateTo("/register");
+    }
+}

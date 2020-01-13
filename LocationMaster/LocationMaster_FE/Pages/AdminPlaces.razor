@@ -1,0 +1,290 @@
+﻿@page "/admin/places"
+@using System.IO
+@using System.Text.Json
+@using System.Security.Claims
+@using BlazorInputFile
+@using LocationMaster_FE.Models
+@using LocationMaster_FE.Models.Responses
+@using LocationMaster_FE.Services
+@using LocationMaster_FE.Services.IServices
+@using LocationMaster_FE.Shared.Admin
+@inject PlaceService Service
+@inject IMatToaster Toaster
+@inject IGeolocationService GeolocationService
+
+@attribute [Authorize]
+<div class="admin-place-body">
+    <CascadingValue Value="this">
+        <LocationMaster_FE.Shared.Admin.NewPlace Id=@Id />
+    </CascadingValue>
+    <MatButton OnClick="@DeletePlace" Raised="true">Delete selected places</MatButton>
+
+    <MatTable Items="@_response" class="mat-elevation-z5" RowClass="tester" FilterByColumnName="Name" DebounceMilliseconds="150">
+        <MatTableHeader>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>PlaceId</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Ticket Price</th>
+            <th>Location</th>
+            <th>Attractions</th>
+            <th>Tickets</th>
+            <th>View</th>
+
+        </MatTableHeader>
+        <MatTableRow>
+            <td>
+                <MatButton OnClick="@(() => OpenDialog(context.PlaceId))" Raised="true">Edit place</MatButton>
+            </td>
+            <td>
+                <MatCheckbox @bind-Value="@context.Deleted"></MatCheckbox>
+            </td>
+            <td>@context.PlaceId</td>
+            <td>@context.Name</td>
+            <td>@(split(context.Description))</td>
+            <td>@context.TicketPrice</td>
+            <td>@context.Address</td>
+            <th>
+                <a href="admin\attractions?id=@context.PlaceId">View attractions</a>
+            </th>
+            <th>
+                <a href="admin\attractions">View tickets</a>
+            </th>
+            <th>
+                <a href="\place?id=@context.PlaceId">View how its looks</a>
+            </th>
+        </MatTableRow>
+
+    </MatTable>
+    <MatDialog @bind-IsOpen="@_dialogIsOpen" Class="custom_dialog">
+        <MatDialogTitle>Edit place @IdPlaceSelected </MatDialogTitle>
+        <MatDialogContent>
+            <MatTextField @bind-Value="@selectedPlaceInfoResource.Name" Label="Name" Required="true"></MatTextField>
+            <MatTextField @bind-Value="@selectedPlaceInfoResource.Description" Label="Description" TextArea="true" Required="true"></MatTextField>
+            <MatNumericUpDownField Label="Ticket Price"
+                                   @bind-Value=@testingNullableDecimal1
+                                   Step="0.01m"
+                                   Minimum=0
+                                   Required="true"
+                                   DecimalPlaces=2>
+            </MatNumericUpDownField>
+            <MatTextField @bind-Value="@currentAddress" Disabled="true" Label="Current Address" FullWidth="true" Required="true"></MatTextField>
+            <BlazoredTypeahead SearchMethod="UpdateSearch"
+                               @bind-Value="newAddress">
+                <SelectedTemplate>
+                    @context
+                </SelectedTemplate>
+                <ResultTemplate>
+                    @context
+                </ResultTemplate>
+            </BlazoredTypeahead>
+            <InputFile OnChange="HandleSelection" />
+            <MatList>
+                @foreach (var photo in _photosName)
+                {
+                    <MatListItem>
+                        @photo
+                        <MatButton Icon="delete" OnClick="@(() => deletePhoto(photo))"></MatButton>
+
+                    </MatListItem>
+                    <MatListDivider></MatListDivider>
+                }
+
+            </MatList>
+            <div style="margin-top: 20px;display: flex;flex-direction: row;flex-wrap: wrap;">
+                @foreach (var photo in currentImages)
+                {
+                    <div style="display: flex;flex-direction: column;margin-right: 20px">
+                        <img src=@($"data:image/jpg;base64,{Convert.ToBase64String(photo.Value)}") style="height:100px;">
+                        <MatButton OnClick="@(() => deletePhoto(photo.Key))" Raised="true">Delete</MatButton>
+
+                    </div>
+                }
+            </div>
+
+        </MatDialogContent>
+        <MatDialogActions>
+            <MatButton OnClick="@OnCancelButton">Cancel</MatButton>
+            <MatButton OnClick="@OnSaveButton">Save</MatButton>
+        </MatDialogActions>
+    </MatDialog>
+
+
+</div>
+
+@code{
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authState { get; set; }
+
+    private ClaimsPrincipal principal;
+
+    async Task HandleSelection(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            var ms = new MemoryStream();
+            await file.Data.CopyToAsync(ms);
+            _photosName.Add(file.Name);
+            selectedPlaceInfoResource.PhotosContentStreams.Add(file.Name, ms.ToArray());
+            StateHasChanged();
+        }
+    }
+
+    void deletePhoto(string id)
+    {
+        currentImages.Remove(id);
+        photoToDelete.Add(id);
+        StateHasChanged();
+    }
+
+    private string split(string data)
+    {
+        var temp = "";
+        var i = 0;
+        for (; i + 70 < data.Length; i += 70)
+            temp += data.Substring(i, 70) + "\n    ";
+        return temp + data.Substring(i);
+    }
+
+    public async void refresh()
+    {
+        await OnInitializedAsync();
+    }
+    private async Task<bool> OnSaveButton()
+    {
+        if (!IsValid())
+        {
+            Toaster.Add("Model invalid", MatToastType.Info);
+            return false;
+        }
+        var noCurrentPhotos = currentImages.Count + selectedPlaceInfoResource.PhotosContentStreams.Count;
+        if (noCurrentPhotos < 3)
+        {
+            Toaster.Add("You need 3 photo at least", MatToastType.Info);
+            return false;
+        }
+        selectedPlaceInfoResource.TicketPrice = Convert.ToDouble(testingNullableDecimal1);
+        if (!String.IsNullOrEmpty(newAddress))
+        {
+            selectedPlaceInfoResource.Address = newAddress;
+            var geo = await GeolocationService.GetCoordonate(newAddress);
+            Console.WriteLine(geo);
+            selectedPlaceInfoResource.Lat = geo[0];
+            selectedPlaceInfoResource.Ltn = geo[1];
+        }
+        await Service.Put(selectedPlaceInfoResource, IdPlaceSelected.ToString());
+        _dialogIsOpen = false;
+        return true;
+    }
+
+
+    private bool IsValid()
+    {
+        if (selectedPlaceInfoResource.Address == null)
+        {
+            Toaster.Add("The address is not completed", MatToastType.Info, "Place validation");
+            return false;
+        }
+
+        if (selectedPlaceInfoResource.Description == null)
+        {
+            Toaster.Add("The description is not completed", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (selectedPlaceInfoResource.Description.Length < 40)
+        {
+            Toaster.Add("The Description need to have at least 40 characthers", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (String.IsNullOrEmpty(selectedPlaceInfoResource.Name))
+        {
+            Toaster.Add("The name is not completed", MatToastType.Info, "Place validation");
+            return false;
+        }
+        if (selectedPlaceInfoResource.TicketPrice <= 0)
+        {
+            Toaster.Add("The ticket price need to be greater than 0", MatToastType.Info, "Place validation");
+            return false;
+        }
+        return true;
+    }
+
+    async void OpenDialog(Guid context)
+    {
+        var result = await Service.GetPlace(context);
+        var images = await Service.GetImagesOfPlace(context.ToString());
+        currentImages = images.data;
+        testingNullableDecimal1 = Convert.ToDecimal(result.data.TicketPrice);
+        IdPlaceSelected = result.data.PlaceId;
+        currentAddress = result.data.Address;
+        selectedPlaceInfoResource = PlaceSave.Create(result.data);
+        _dialogIsOpen = true;
+        StateHasChanged();
+    }
+
+    void OnCancelButton()
+    {
+        _dialogIsOpen = false;
+    }
+
+    async void DeletePlace()
+    {
+        var listToDelete = new List<PlaceInfoResource>();
+        foreach (var placeInfoResource in _response)
+        {
+            if (placeInfoResource.Deleted)
+            {
+                if (!await Service.Delete(placeInfoResource.PlaceId))
+                    Toaster.Add($"Fail to delete place with Id{placeInfoResource.PlaceId}", MatToastType.Danger, "Error");
+                else
+                    listToDelete.Add(placeInfoResource);
+            }
+        }
+
+        foreach (var placeInfoResource in listToDelete)
+        {
+            _response.Remove(placeInfoResource);
+        }
+        StateHasChanged();
+    }
+
+    private async Task<IEnumerable<string>> UpdateSearch(string searchText)
+    {
+        return await GeolocationService.GetPredictions(searchText);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (authState != null)
+        {
+            principal = (await authState).User;
+        }
+        Id = Guid.Parse(principal.Claims.Where(c => c.Type == "userId").FirstOrDefault().Value);
+
+        var result = await Service.GetPlacesOfModerator(Id);
+        if (!result.Success)
+            Toaster.Add(result.Message, MatToastType.Danger, "Fail");
+        else
+        {
+            _response = result.data;
+            Toaster.Add($"{_response.Count} places found", MatToastType.Info);
+            StateHasChanged();
+        }
+    }
+
+    Guid IdPlaceSelected = new Guid();
+    private bool _dialogIsOpen = false;
+    private PlaceSave selectedPlaceInfoResource = new PlaceSave();
+    private List<PlaceInfoResource> _response = new List<PlaceInfoResource>();
+    decimal? testingNullableDecimal1 = 0m;
+    string currentAddress;
+    string newAddress = "";
+    private List<string> _photosName = new List<string>();
+
+    Dictionary<string, byte[]> currentImages = new Dictionary<string, byte[]>();
+    Guid Id;
+    private List<string> photoToDelete = new List<string>();
+}

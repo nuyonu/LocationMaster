@@ -1,0 +1,26 @@
+﻿@using LocationMaster_FE.ContainerState
+@inject SearchStorage Storage
+<div claa="places-component-line">
+    <input type="radio" id="places-menu-range`@Id`" class="btn-radio-places" name="price" value="@Value" @onclick="SetState">
+    <label for="places-menu-range`@Id`" class="places-text">@ValuePrice</label>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Key { get; set; }
+
+    [Parameter]
+    public string Value { get; set; }
+
+    [Parameter]
+    public string ValuePrice { get; set; }
+
+    [Parameter]
+    public string Id { get; set; }
+
+    public void SetState()
+    {
+        Storage.SetRange(Key);
+    }
+}

@@ -1,0 +1,36 @@
+﻿@using System.Text.Json
+@using LocationMaster_FE.Models.Responses
+@using LocationMaster_FE.Services
+@using LocationMaster_FE.Shared.PlaceComponents
+@inject NavigationManager navManager
+@inject PlaceService Service
+
+@using Microsoft.AspNetCore.WebUtilities
+
+
+@page "/place"
+<PlacePoster Data=@_detailsPlace/>
+<OwnerOpinion Data=@_detailsPlace/>
+<AttractionsPlace Id=@_id/>
+<MapComponent Data=@_detailsPlace/>
+<Gallery Data=@_detailsPlace/>
+@* <ReviewsPlaces Data=@_detailsPlace/> *@
+
+@code {
+
+    private string _id;
+    private PlaceInfoResource _detailsPlace;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = navManager.ToAbsoluteUri(navManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("id", out var param))
+        {
+            _id = param.First();
+            var response = await Service.GetPlace(Guid.Parse(_id));
+            _detailsPlace = response.data;
+            StateHasChanged();
+        }
+    }
+
+}

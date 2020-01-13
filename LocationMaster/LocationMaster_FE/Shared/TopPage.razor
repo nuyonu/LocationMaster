@@ -1,0 +1,43 @@
+﻿@using LocationMaster_FE.Pages
+@using LocationMaster_FE.Shared.SearchLocations
+
+@{ CheckClass(); }
+<div class="top-page">
+    <div class="top-page-opacity pt-5 mb-5">
+        <div class="page-title @WithoutsearchBarClass">
+            <h1 class="mt-5 text-center pb-2 color-white deepshd-font">@PageTitle</h1>
+        </div>
+        @if (WithSearchBar)
+        {
+            <div class="d-flex justify-content-center">
+                <div class="w-50 form-group">
+                    <input type="search" class="form-control form-control-lg" placeholder="Search..." @bind="@parent.Value" @oninput="@((ui) => { parent.SetValue((string) ui.Value);})"/>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    [CascadingParameter]
+    PlacesSearch parent { get; set; }
+
+    [Parameter]
+    public string PageTitle { get; set; } = "No Page Title";
+
+    [Parameter]
+    public bool WithSearchBar { get; set; } = false;
+
+    private string WithoutsearchBarClass { get; set; }
+
+    void CheckClass()
+    {
+        if (!WithSearchBar)
+            WithoutsearchBarClass = "pb-24px";
+        else
+            WithoutsearchBarClass = null;
+    }
+
+}
